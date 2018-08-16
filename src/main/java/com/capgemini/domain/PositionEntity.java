@@ -32,11 +32,10 @@ public class PositionEntity implements Serializable {
 		super();
 	}
 
-	public PositionEntity(Long id, String position, List<EmployeeEntity> employees) {
-		super();
-		this.id = id;
-		this.position = position;
-		this.employees = employees;
+	public PositionEntity(PositionEntityBuilder builder) {
+		this.id = builder.id;
+		this.position = builder.position;
+		this.employees = builder.employees;
 	}
 
 	public Long getId() {
@@ -51,16 +50,41 @@ public class PositionEntity implements Serializable {
 		return position;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
 	public List<EmployeeEntity> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(List<EmployeeEntity> employees) {
-		this.employees = employees;
-	}
+	public static class PositionEntityBuilder {
 
+		private Long id;
+		private String position;
+		private List<EmployeeEntity> employees;
+
+		public PositionEntityBuilder() {
+			super();
+		}
+
+		public PositionEntityBuilder withId(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		public PositionEntityBuilder withPosition(String position) {
+			this.position = position;
+			return this;
+		}
+
+		public PositionEntityBuilder withEmployees(List<EmployeeEntity> employees) {
+			this.employees = employees;
+			return this;
+		}
+
+		public PositionEntity build() {
+
+			return new PositionEntity(this);
+		}
+
+	}
 }
+
+

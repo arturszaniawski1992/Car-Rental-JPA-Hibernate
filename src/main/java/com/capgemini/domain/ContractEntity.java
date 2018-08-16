@@ -23,7 +23,7 @@ public class ContractEntity {
 	@Column(name = "return_date", nullable = false)
 	private LocalDate returnDate;
 	@Column(name = "cost", nullable = false)
-	private double cost;
+	private Double cost;
 
 	@ManyToOne
 	@JoinColumn(name = "id_department_from")
@@ -42,6 +42,7 @@ public class ContractEntity {
 	}
 
 	public ContractEntity(ContractEntityBuilder builder) {
+		this.id=builder.id;
 		this.rentDate = builder.rentDate;
 		this.returnDate = builder.returnDate;
 		this.cost = builder.cost;
@@ -49,6 +50,16 @@ public class ContractEntity {
 		this.departmentTo = builder.departmentTo;
 		this.carEntity = builder.carEntity;
 		this.customerEntity = builder.customerEntity;
+	}
+
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public LocalDate getRentDate() {
@@ -59,7 +70,7 @@ public class ContractEntity {
 		return returnDate;
 	}
 
-	public double getCost() {
+	public Double getCost() {
 		return cost;
 	}
 
@@ -80,9 +91,10 @@ public class ContractEntity {
 	}
 
 	public static class ContractEntityBuilder {
+		private Long id;
 		private LocalDate rentDate;
 		private LocalDate returnDate;
-		private double cost;
+		private Double cost;
 		private DepartmentEntity departmentFrom;
 		private DepartmentEntity departmentTo;
 		private CarEntity carEntity;
@@ -90,6 +102,12 @@ public class ContractEntity {
 
 		public ContractEntityBuilder() {
 
+		}
+		
+		public ContractEntityBuilder withId(Long id){
+			this.id=id;
+			return this;
+			
 		}
 
 		public ContractEntityBuilder withRentDate(LocalDate rentDate){
@@ -104,7 +122,7 @@ public class ContractEntity {
 			
 		}
 		
-		public ContractEntityBuilder withCost(double cost){
+		public ContractEntityBuilder withCost(Double cost){
 			this.cost=cost;
 			return this;
 			
@@ -122,13 +140,13 @@ public class ContractEntity {
 			
 		}
 		
-		public ContractEntityBuilder withCarEntity(CarEntity carEntity){
+		public ContractEntityBuilder withCar(CarEntity carEntity){
 			this.carEntity=carEntity;
 			return this;
 			
 		}
 		
-		public ContractEntityBuilder withDepartmentTo(CustomerEntity customerEntity){
+		public ContractEntityBuilder withCustomer(CustomerEntity customerEntity){
 			this.customerEntity=customerEntity;
 			return this;
 			

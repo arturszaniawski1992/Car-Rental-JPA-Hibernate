@@ -1,36 +1,36 @@
 package com.capgemini.types;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import com.capgemini.domain.CarEntity;
-import com.capgemini.domain.DepartmentEntity;
-import com.capgemini.domain.PositionEntity;
 
 public class EmployeeTO {
 
+	private Long id;
 	private String firstName;
 	private String lastName;
-	private double salary;
+	private Double salary;
 	private LocalDate dateOfBirth;
 	private String mobile;
-	private DepartmentEntity departmentEntity;
-	private PositionEntity positionEntity;
-	private List<CarEntity> attendCars;
 
 	EmployeeTO() {
 		super();
 	}
 
 	public EmployeeTO(EmployeeTOBuilder builder) {
+		this.id = builder.id;
 		this.firstName = builder.firstName;
 		this.lastName = builder.lastName;
 		this.salary = builder.salary;
 		this.dateOfBirth = builder.dateOfBirth;
 		this.mobile = builder.mobile;
-		this.departmentEntity = builder.departmentEntity;
-		this.positionEntity = builder.positionEntity;
-		this.attendCars = builder.attendCars;
+
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -53,31 +53,32 @@ public class EmployeeTO {
 		return mobile;
 	}
 
-	public DepartmentEntity getDepartmentEntity() {
-		return departmentEntity;
-	}
-
-	public PositionEntity getPositionEntity() {
-		return positionEntity;
-	}
-
-	public List<CarEntity> getAttendCars() {
-		return attendCars;
-	}
-
 	public static class EmployeeTOBuilder {
 
+		private Long id;
 		private String firstName;
 		private String lastName;
-		private double salary;
+		private Double salary;
 		private LocalDate dateOfBirth;
 		private String mobile;
-		private DepartmentEntity departmentEntity;
-		private PositionEntity positionEntity;
-		private List<CarEntity> attendCars;
 
 		public EmployeeTOBuilder() {
 			super();
+		}
+
+		public EmployeeTOBuilder withId(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		public EmployeeTOBuilder withFirstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		public EmployeeTOBuilder withLastName(String lastName) {
+			this.lastName = lastName;
+			return this;
 		}
 
 		public EmployeeTOBuilder withSalary(double salary) {
@@ -95,28 +96,7 @@ public class EmployeeTO {
 			return this;
 		}
 
-		public EmployeeTOBuilder withDepartmentEntity(DepartmentEntity departmentEntity) {
-			this.departmentEntity = departmentEntity;
-			return this;
-		}
-
-		public EmployeeTOBuilder withPositionEntity(PositionEntity positionEntity) {
-			this.positionEntity = positionEntity;
-			return this;
-		}
-
-		public EmployeeTOBuilder withAttendCars(List<CarEntity> attendCars) {
-			this.attendCars = attendCars;
-			return this;
-		}
-
 		public EmployeeTO build() {
-			if (firstName != null || lastName != null) {
-				// dodac wlasny wyhjatek!
-
-				throw new RuntimeException("Incorrect employee to be created");
-			}
-
 			return new EmployeeTO(this);
 		}
 

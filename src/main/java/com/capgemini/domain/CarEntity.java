@@ -29,13 +29,13 @@ public class CarEntity implements Serializable {
 	@Column(name = "model", length = 50, nullable = false)
 	private String model;
 	@Column(name = "power", nullable = false)
-	private int power;
+	private Integer power;
 	@Column(name = "milleage", nullable = false)
-	private int milleage;
+	private Integer milleage;
 	@Column(name = "engineCapacity", length = 50, nullable = false)
-	private int engineCapacity;
+	private Double engineCapacity;
 	@Column(name = "year", nullable = false)
-	private int year;
+	private Integer year;
 	@Column(name = "color", nullable = false)
 	private String color;
 	@Column(name = "car_type", nullable = false)
@@ -43,7 +43,7 @@ public class CarEntity implements Serializable {
 
 	@OneToMany(mappedBy = "carEntity", cascade = CascadeType.ALL)
 	private List<ContractEntity> contracts;
-	@ManyToMany(mappedBy = "attendCars", cascade = CascadeType.MERGE)
+	@ManyToMany(mappedBy = "attendCars", cascade = CascadeType.ALL)
 	private List<EmployeeEntity> attendantEmployees;
 
 	public CarEntity() {
@@ -68,6 +68,10 @@ public class CarEntity implements Serializable {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getBrand() {
 		return brand;
 	}
@@ -76,19 +80,19 @@ public class CarEntity implements Serializable {
 		return model;
 	}
 
-	public int getPower() {
+	public Integer getPower() {
 		return power;
 	}
 
-	public int getMilleage() {
+	public Integer getMilleage() {
 		return milleage;
 	}
 
-	public int getEngineCapacity() {
+	public Double getEngineCapacity() {
 		return engineCapacity;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
@@ -103,7 +107,7 @@ public class CarEntity implements Serializable {
 	public List<ContractEntity> getContracts() {
 		return contracts;
 	}
-	
+
 	public List<EmployeeEntity> getAttendantEmployees() {
 		return attendantEmployees;
 	}
@@ -116,17 +120,22 @@ public class CarEntity implements Serializable {
 		private Long id;
 		private String brand;
 		private String model;
-		private int power;
-		private int milleage;
-		private int engineCapacity;
-		private int year;
+		private Integer power;
+		private Integer milleage;
+		private Double engineCapacity;
+		private Integer year;
 		private String color;
 		private String type;
 		private List<ContractEntity> contracts;
 		private List<EmployeeEntity> attendantEmployees;
 
 		public CarEntityBuilder() {
-			
+
+		}
+
+		public CarEntityBuilder withId(Long id) {
+			this.id = id;
+			return this;
 		}
 
 		public CarEntityBuilder withBrand(String brand) {
@@ -139,24 +148,24 @@ public class CarEntity implements Serializable {
 			return this;
 		}
 
-		public CarEntityBuilder withPower(int power) {
+		public CarEntityBuilder withPower(Integer power) {
 			this.power = power;
 			return this;
 		}
 
-		public CarEntityBuilder withMilleage(int milleage) {
+		public CarEntityBuilder withMilleage(Integer milleage) {
 			this.milleage = milleage;
 			return this;
 
 		}
 
-		public CarEntityBuilder withEngineCapacity(int engineCapacity) {
+		public CarEntityBuilder withEngineCapacity(Double engineCapacity) {
 			this.engineCapacity = engineCapacity;
 			return this;
 
 		}
 
-		public CarEntityBuilder withYear(int year) {
+		public CarEntityBuilder withYear(Integer year) {
 			this.year = year;
 			return this;
 
@@ -187,9 +196,6 @@ public class CarEntity implements Serializable {
 		}
 
 		public CarEntity build() {
-			if (brand != null || model != null) {
-				throw new RuntimeException("Incorrect car to be created");
-			}
 			return new CarEntity(this);
 		}
 

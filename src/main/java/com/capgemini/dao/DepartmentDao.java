@@ -10,5 +10,5 @@ public interface DepartmentDao extends Dao<DepartmentEntity, Long> {
 
 	List<EmployeeEntity> findEmployesByDepartmentAndAttendantCar(DepartmentEntity department, CarEntity car);
 
-	List<EmployeeEntity> findEmployesByDepartmentEntityId(Long id);
+	List<EmployeeEntity> findEmployeesByDepartmentEntityId(Long id);
 }

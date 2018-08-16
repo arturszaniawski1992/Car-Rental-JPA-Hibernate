@@ -34,9 +34,9 @@ public class DepartmentEntity implements Serializable {
 
 	@OneToMany(mappedBy = "departmentEntity")
 	private List<EmployeeEntity> employees;
-	@OneToMany(mappedBy = "departmentFrom", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "departmentFrom", cascade = CascadeType.REMOVE)
 	private List<ContractEntity> contractFrom;
-	@OneToMany(mappedBy = "departmentTo", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "departmentTo", cascade = CascadeType.MERGE)
 	private List<ContractEntity> contractTo;
 
 	public DepartmentEntity() {
@@ -44,12 +44,22 @@ public class DepartmentEntity implements Serializable {
 	}
 
 	public DepartmentEntity(DepartmentEntityBuilder builder) {
-
+		this.id = builder.id;
 		this.mobile = builder.mobile;
 		this.adressData = builder.adressData;
 		this.employees = builder.employees;
 		this.contractFrom = builder.contractFrom;
 		this.contractTo = builder.contractTo;
+	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getMobile() {
@@ -77,6 +87,7 @@ public class DepartmentEntity implements Serializable {
 	}
 
 	public static class DepartmentEntityBuilder {
+		private Long id;
 		private String mobile;
 		private AdressData adressData;
 		private List<EmployeeEntity> employees;
@@ -87,12 +98,17 @@ public class DepartmentEntity implements Serializable {
 			super();
 		}
 
+		public DepartmentEntityBuilder withId(Long id) {
+			this.id = id;
+			return this;
+		}
+
 		public DepartmentEntityBuilder withMobile(String mobile) {
 			this.mobile = mobile;
 			return this;
 		}
 
-		public DepartmentEntityBuilder withAdress(AdressData adressData) {
+		public DepartmentEntityBuilder withAdressData(AdressData adressData) {
 			this.adressData = adressData;
 			return this;
 		}
@@ -108,7 +124,7 @@ public class DepartmentEntity implements Serializable {
 		}
 
 		public DepartmentEntityBuilder withContractTo(List<ContractEntity> contractTo) {
-			this.contractTo=contractTo;
+			this.contractTo = contractTo;
 			return this;
 		}
 

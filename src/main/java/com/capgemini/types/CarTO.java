@@ -3,18 +3,17 @@ package com.capgemini.types;
 import java.util.List;
 
 public class CarTO {
-
 	private Long id;
 	private String brand;
 	private String model;
-	private int power;
-	private int milleage;
-	private int engineCapacity;
-	private int year;
+	private Integer power;
+	private Integer milleage;
+	private Double engineCapacity;
+	private Integer year;
 	private String color;
 	private String type;
-	private List<ContractTO> contracts;
-	private List<EmployeeTO> attendantEmployees;
+	private List<Long> contracts;
+	private List<Long> attendantEmployees;
 
 	public CarTO() {
 		super();
@@ -30,12 +29,17 @@ public class CarTO {
 		this.year = builder.year;
 		this.color = builder.color;
 		this.type = builder.type;
-		this.contracts = builder.contracts;
+		this.contracts=builder.contracts;
 		this.attendantEmployees = builder.attendantEmployees;
+
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getBrand() {
@@ -46,19 +50,19 @@ public class CarTO {
 		return model;
 	}
 
-	public int getPower() {
+	public Integer getPower() {
 		return power;
 	}
 
-	public int getMilleage() {
+	public Integer getMilleage() {
 		return milleage;
 	}
 
-	public int getEngineCapacity() {
+	public Double getEngineCapacity() {
 		return engineCapacity;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
@@ -70,14 +74,13 @@ public class CarTO {
 		return type;
 	}
 
-	public List<ContractTO> getContracts() {
-		return contracts;
-	}
-	
-	public List<EmployeeTO> getAttendantEmployees() {
+	public List<Long> getAttendantEmployees() {
 		return attendantEmployees;
 	}
 
+	public List<Long> getContracts() {
+		return contracts;
+	}
 	public static CarTOBuilder builder() {
 		return new CarTOBuilder();
 	}
@@ -86,18 +89,31 @@ public class CarTO {
 		private Long id;
 		private String brand;
 		private String model;
-		private int power;
-		private int milleage;
-		private int engineCapacity;
-		private int year;
+		private Integer power;
+		private Integer milleage;
+		private Double engineCapacity;
+		private Integer year;
 		private String color;
 		private String type;
-		private List<ContractTO> contracts;
-		private List<EmployeeTO> attendantEmployees;
+		private List<Long> contracts;
+		private List<Long> attendantEmployees;
 
 		public CarTOBuilder() {
 			super();
 
+		}
+
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+		public CarTOBuilder withId(Long id) {
+			this.id = id;
+			return this;
 		}
 
 		public CarTOBuilder withBrand(String brand) {
@@ -110,24 +126,24 @@ public class CarTO {
 			return this;
 		}
 
-		public CarTOBuilder withPower(int power) {
+		public CarTOBuilder withPower(Integer power) {
 			this.power = power;
 			return this;
 		}
 
-		public CarTOBuilder withMilleage(int milleage) {
+		public CarTOBuilder withMilleage(Integer milleage) {
 			this.milleage = milleage;
 			return this;
 
 		}
 
-		public CarTOBuilder withEngineCapacity(int engineCapacity) {
+		public CarTOBuilder withEngineCapacity(Double engineCapacity) {
 			this.engineCapacity = engineCapacity;
 			return this;
 
 		}
 
-		public CarTOBuilder withYear(int year) {
+		public CarTOBuilder withYear(Integer year) {
 			this.year = year;
 			return this;
 
@@ -145,22 +161,19 @@ public class CarTO {
 
 		}
 
-		public CarTOBuilder withContracts(List<ContractTO> contracts) {
+		public CarTOBuilder withAttendantEmployees(List<Long> attendantEmployees) {
+			this.attendantEmployees = attendantEmployees;
+			return this;
+
+		}
+		public CarTOBuilder withContracts(List<Long> contracts) {
 			this.contracts = contracts;
 			return this;
 
 		}
 
-		public CarTOBuilder withAttendantEmployees(List<EmployeeTO> attendantEmployees) {
-			this.attendantEmployees = attendantEmployees;
-			return this;
-
-		}
-
 		public CarTO build() {
-			if (brand != null || model != null) {
-				throw new RuntimeException("Incorrect car to be created");
-			}
+
 			return new CarTO(this);
 		}
 

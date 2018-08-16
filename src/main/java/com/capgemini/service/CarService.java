@@ -2,26 +2,28 @@ package com.capgemini.service;
 
 import java.util.List;
 
-import com.capgemini.domain.CarEntity;
+import com.capgemini.types.CarTO;
 
 public interface CarService {
-	
-	CarEntity add(CarEntity carEntity);
 
-	CarEntity update(CarEntity carEntity);
+	CarTO add(CarTO carTO);
 
-	CarEntity findOne(Long id);
+	CarTO update(CarTO carTO);
 
-	List<CarEntity> findAll();
+	CarTO findCarById(Long id);
+
+	List<CarTO> findAll();
 
 	void addAttendantToCar(Long idCar, Long idAttendant);
 
 	void removeCarById(Long id);
 
-	List<CarEntity> getCarsByCarTypeAndBrand(String carType, String brand);
+	List<CarTO> getCarsByCarTypeAndBrand(String carType, String brand);
 
-	List<CarEntity> getCarsByAttendantId(Long idEmployee);
+	List<CarTO> getCarsByAttendantId(Long idEmployee);
 
-	
+	void deleteAll();
+
+	CarTO saveCar(CarTO carTO);
 
 }

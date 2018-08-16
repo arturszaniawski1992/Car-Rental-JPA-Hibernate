@@ -32,7 +32,7 @@ public class EmployeeEntity implements Serializable {
 	@Column(length = 50, nullable = false)
 	private String lastName;
 	@Column(nullable = false)
-	private double salary;
+	private Double salary;
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 	@Column(length = 50, nullable = false)
@@ -49,12 +49,12 @@ public class EmployeeEntity implements Serializable {
 			@JoinColumn(name = "id_car") })
 	private List<CarEntity> attendCars;
 
-	// zamiast CarEnitty LOng
 	public EmployeeEntity() {
 		super();
 	}
 
 	public EmployeeEntity(EmployeeEntityBuilder builder) {
+		this.id = builder.id;
 		this.firstName = builder.firstName;
 		this.lastName = builder.lastName;
 		this.salary = builder.salary;
@@ -63,6 +63,14 @@ public class EmployeeEntity implements Serializable {
 		this.departmentEntity = builder.departmentEntity;
 		this.positionEntity = builder.positionEntity;
 		this.attendCars = builder.attendCars;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -98,7 +106,7 @@ public class EmployeeEntity implements Serializable {
 	}
 
 	public static class EmployeeEntityBuilder {
-
+		private Long id;
 		private String firstName;
 		private String lastName;
 		private double salary;
@@ -112,7 +120,22 @@ public class EmployeeEntity implements Serializable {
 			super();
 		}
 
-		public EmployeeEntityBuilder withSalary(double salary) {
+		public EmployeeEntityBuilder witId(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		public EmployeeEntityBuilder withFirstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		public EmployeeEntityBuilder withLastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		public EmployeeEntityBuilder withSalary(Double salary) {
 			this.salary = salary;
 			return this;
 		}
@@ -143,9 +166,6 @@ public class EmployeeEntity implements Serializable {
 		}
 
 		public EmployeeEntity build() {
-			if (firstName != null || lastName != null) {
-				throw new RuntimeException("Incorrect employee to be created");
-			}
 
 			return new EmployeeEntity(this);
 		}

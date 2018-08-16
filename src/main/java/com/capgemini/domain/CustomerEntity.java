@@ -50,6 +50,7 @@ public class CustomerEntity implements Serializable {
 	}
 
 	public CustomerEntity(CustomerEntityBuilder builder) {
+		this.id = builder.id;
 		this.firstName = builder.firstName;
 		this.lastName = builder.lastName;
 		this.creditCardNumber = builder.creditCardNumber;
@@ -63,6 +64,10 @@ public class CustomerEntity implements Serializable {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -98,7 +103,7 @@ public class CustomerEntity implements Serializable {
 	}
 
 	public static class CustomerEntityBuilder {
-
+		private Long id;
 		private String firstName;
 		private String lastName;
 		private String creditCardNumber;
@@ -110,6 +115,11 @@ public class CustomerEntity implements Serializable {
 
 		public CustomerEntityBuilder() {
 			super();
+		}
+
+		public CustomerEntityBuilder withId(Long id) {
+			this.id = id;
+			return this;
 		}
 
 		public CustomerEntityBuilder withFirstName(String firstName) {
@@ -143,11 +153,6 @@ public class CustomerEntity implements Serializable {
 		}
 
 		public CustomerEntity build() {
-			if (firstName != null || lastName != null) {
-				// dodac wlasny wyhjatek!
-
-				throw new RuntimeException("Incorrect employee to be created");
-			}
 
 			return new CustomerEntity(this);
 		}
