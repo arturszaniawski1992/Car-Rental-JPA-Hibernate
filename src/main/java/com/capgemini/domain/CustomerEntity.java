@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import embedded.AdressData;
+import embedded.AdressDataEntity;
 
 @Entity
 @Table(name = "customer")
@@ -33,14 +33,14 @@ public class CustomerEntity implements Serializable {
 	private String lastName;
 	@Column(nullable = false)
 	private String creditCardNumber;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate dateOfBirth;
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	private String mobile;
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	private String mail;
 	@Embedded
-	private AdressData adressData;
+	private AdressDataEntity adressData;
 
 	@OneToMany(mappedBy = "customerEntity")
 	private List<ContractEntity> contracts;
@@ -94,12 +94,16 @@ public class CustomerEntity implements Serializable {
 		return mail;
 	}
 
-	public AdressData getAdressData() {
+	public AdressDataEntity getAdressData() {
 		return adressData;
 	}
 
 	public List<ContractEntity> getContracts() {
 		return contracts;
+	}
+	
+	public static CustomerEntityBuilder builder() {
+		return new CustomerEntityBuilder();
 	}
 
 	public static class CustomerEntityBuilder {
@@ -110,7 +114,7 @@ public class CustomerEntity implements Serializable {
 		private LocalDate dateOfBirth;
 		private String mobile;
 		private String mail;
-		private AdressData adressData;
+		private AdressDataEntity adressData;
 		private List<ContractEntity> contracts;
 
 		public CustomerEntityBuilder() {
@@ -142,7 +146,7 @@ public class CustomerEntity implements Serializable {
 			return this;
 		}
 
-		public CustomerEntityBuilder withAdressData(AdressData adressData) {
+		public CustomerEntityBuilder withAdressData(AdressDataEntity adressData) {
 			this.adressData = adressData;
 			return this;
 		}

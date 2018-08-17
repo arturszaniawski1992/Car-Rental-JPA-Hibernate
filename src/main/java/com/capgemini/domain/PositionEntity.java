@@ -50,8 +50,20 @@ public class PositionEntity implements Serializable {
 		return position;
 	}
 
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
 	public List<EmployeeEntity> getEmployees() {
 		return employees;
+	}
+
+	public void setEmployees(List<EmployeeEntity> employees) {
+		this.employees = employees;
+	}
+
+	public static PositionEntityBuilder builder() {
+		return new PositionEntityBuilder();
 	}
 
 	public static class PositionEntityBuilder {
@@ -86,5 +98,3 @@ public class PositionEntity implements Serializable {
 
 	}
 }
-
-

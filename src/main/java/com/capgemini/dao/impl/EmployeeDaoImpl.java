@@ -1,7 +1,10 @@
 package com.capgemini.dao.impl;
 
-import com.capgemini.domain.EmployeeEntity;
+import org.springframework.stereotype.Repository;
 
-public class EmployeeDaoImpl extends AbstractDao<EmployeeEntity, Long> {
+import com.capgemini.dao.EmployeeDao;
+import com.capgemini.domain.EmployeeEntity;
+@Repository
+public class EmployeeDaoImpl extends AbstractDao<EmployeeEntity, Long> implements EmployeeDao {
 
 }

@@ -26,11 +26,11 @@ public class CarDaoImpl extends AbstractDao<CarEntity, Long> implements CarDao {
 	}
 
 	@Override
-	public List<CarEntity> findByAttendantEmployees(EmployeeEntity employeeEntity) {
-		EmployeeEntity employee = entityManager.getReference(EmployeeEntity.class, employeeEntity);
-		TypedQuery<CarEntity> query = entityManager
-				.createQuery("select car from CarEntity car  where employee MEMBER OF attendCar", CarEntity.class);
-		query.setParameter("employee", employee);
+	public List<CarEntity> findByAttendantEmployees(Long employeeId) {
+		EmployeeEntity employee = entityManager.getReference(EmployeeEntity.class, employeeId);
+		TypedQuery<CarEntity> query = entityManager.createQuery
+				("select car from CarEntity car  where :id MEMBER OF car.attendantEmployees", CarEntity.class);
+		query.setParameter("id", employee);
 		return query.getResultList();
 	}
 

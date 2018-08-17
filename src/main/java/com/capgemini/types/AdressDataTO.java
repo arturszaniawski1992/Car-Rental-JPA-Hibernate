@@ -69,7 +69,7 @@ public class AdressDataTO {
 			return this;
 		}
 
-		public AdressDataTOBuilder withStreet(int number) {
+		public AdressDataTOBuilder withNumber(int number) {
 			this.number = number;
 			return this;
 		}

@@ -1,5 +1,7 @@
 package com.capgemini.dao;
 
-public interface ContractDao {
+import com.capgemini.domain.ContractEntity;
+
+public interface ContractDao extends Dao<ContractEntity, Long>{
 
 }

@@ -30,7 +30,7 @@ public class CarServiceTest {
 	public void shouldFindCarById() {
 		// given
 		CarTO car = new CarTOBuilder().withBrand("Audi").withType("sedan").withModel("A4").withPower(200)
-				.withEngineCapacity(1.8).withColor("Black").withYear(2015).build();
+				.withEngineCapacity(1.8).withColor("Black").withYear(2015).withMilleage(15000).build();
 		CarTO savedCar = carService.saveCar(car);
 
 		// when

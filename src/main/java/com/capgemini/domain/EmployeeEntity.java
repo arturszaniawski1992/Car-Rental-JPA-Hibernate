@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import exception.InvalidCreationException;
+
 @Entity
 @Table(name = "employee")
 public class EmployeeEntity implements Serializable {
@@ -25,7 +27,7 @@ public class EmployeeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(length = 50, nullable = false)
 	private String firstName;
@@ -33,9 +35,9 @@ public class EmployeeEntity implements Serializable {
 	private String lastName;
 	@Column(nullable = false)
 	private Double salary;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate dateOfBirth;
-	@Column(length = 50, nullable = false)
+	@Column(length = 50, nullable = true)
 	private String mobile;
 
 	@ManyToOne
@@ -65,6 +67,8 @@ public class EmployeeEntity implements Serializable {
 		this.attendCars = builder.attendCars;
 	}
 
+	
+
 	public Long getId() {
 		return id;
 	}
@@ -77,33 +81,67 @@ public class EmployeeEntity implements Serializable {
 		return firstName;
 	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
 
-	public double getSalary() {
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Double getSalary() {
 		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
 	}
 
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public String getMobile() {
 		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public DepartmentEntity getDepartmentEntity() {
 		return departmentEntity;
 	}
 
+	public void setDepartmentEntity(DepartmentEntity departmentEntity) {
+		this.departmentEntity = departmentEntity;
+	}
+
 	public PositionEntity getPositionEntity() {
 		return positionEntity;
+	}
+
+	public void setPositionEntity(PositionEntity positionEntity) {
+		this.positionEntity = positionEntity;
 	}
 
 	public List<CarEntity> getAttendCars() {
 		return attendCars;
 	}
+
+	public void setAttendCars(List<CarEntity> attendCars) {
+		this.attendCars = attendCars;
+	}
+
+
 
 	public static class EmployeeEntityBuilder {
 		private Long id;
@@ -120,7 +158,7 @@ public class EmployeeEntity implements Serializable {
 			super();
 		}
 
-		public EmployeeEntityBuilder witId(Long id) {
+		public EmployeeEntityBuilder withId(Long id) {
 			this.id = id;
 			return this;
 		}
@@ -165,8 +203,8 @@ public class EmployeeEntity implements Serializable {
 			return this;
 		}
 
-		public EmployeeEntity build() {
-
+		public EmployeeEntity build() throws InvalidCreationException {
+		
 			return new EmployeeEntity(this);
 		}
 

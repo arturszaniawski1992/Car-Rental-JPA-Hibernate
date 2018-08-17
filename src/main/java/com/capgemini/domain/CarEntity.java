@@ -28,22 +28,22 @@ public class CarEntity implements Serializable {
 	private String brand;
 	@Column(name = "model", length = 50, nullable = false)
 	private String model;
-	@Column(name = "power", nullable = false)
+	@Column(name = "power", nullable = true)
 	private Integer power;
-	@Column(name = "milleage", nullable = false)
+	@Column(name = "milleage", nullable = true)
 	private Integer milleage;
-	@Column(name = "engineCapacity", length = 50, nullable = false)
+	@Column(name = "engineCapacity", length = 50, nullable = true)
 	private Double engineCapacity;
-	@Column(name = "year", nullable = false)
+	@Column(name = "year", nullable = true)
 	private Integer year;
-	@Column(name = "color", nullable = false)
+	@Column(name = "color", nullable = true)
 	private String color;
 	@Column(name = "car_type", nullable = false)
 	private String type;
 
-	@OneToMany(mappedBy = "carEntity", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "carEntity", cascade = CascadeType.REMOVE)
 	private List<ContractEntity> contracts;
-	@ManyToMany(mappedBy = "attendCars", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "attendCars", cascade = CascadeType.MERGE)
 	private List<EmployeeEntity> attendantEmployees;
 
 	public CarEntity() {
@@ -64,6 +64,8 @@ public class CarEntity implements Serializable {
 		this.attendantEmployees = builder.attendantEmployees;
 	}
 
+	
+
 	public Long getId() {
 		return id;
 	}
@@ -76,40 +78,80 @@ public class CarEntity implements Serializable {
 		return brand;
 	}
 
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	public String getModel() {
 		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public Integer getPower() {
 		return power;
 	}
 
+	public void setPower(Integer power) {
+		this.power = power;
+	}
+
 	public Integer getMilleage() {
 		return milleage;
+	}
+
+	public void setMilleage(Integer milleage) {
+		this.milleage = milleage;
 	}
 
 	public Double getEngineCapacity() {
 		return engineCapacity;
 	}
 
+	public void setEngineCapacity(Double engineCapacity) {
+		this.engineCapacity = engineCapacity;
+	}
+
 	public Integer getYear() {
 		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 
 	public String getColor() {
 		return color;
 	}
 
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public String getType() {
 		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<ContractEntity> getContracts() {
 		return contracts;
 	}
 
+	public void setContracts(List<ContractEntity> contracts) {
+		this.contracts = contracts;
+	}
+
 	public List<EmployeeEntity> getAttendantEmployees() {
 		return attendantEmployees;
+	}
+
+	public void setAttendantEmployees(List<EmployeeEntity> attendantEmployees) {
+		this.attendantEmployees = attendantEmployees;
 	}
 
 	public static CarEntityBuilder builder() {

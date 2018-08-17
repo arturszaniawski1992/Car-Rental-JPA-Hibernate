@@ -1,13 +1,10 @@
 package com.capgemini.mappers;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.capgemini.domain.CarEntity;
 import com.capgemini.domain.DepartmentEntity;
 import com.capgemini.domain.DepartmentEntity.DepartmentEntityBuilder;
-import com.capgemini.types.CarTO;
 import com.capgemini.types.DepartmentTO;
 import com.capgemini.types.DepartmentTO.DepartmentTOBuilder;
 
@@ -33,8 +30,8 @@ public class DepartmentMapper {
 		return departments.stream().map(DepartmentMapper::toDepartmentTO).collect(Collectors.toList());
 	}
 
-	public static List<CarEntity> map2Entities(List<CarTO> carTOs) {
-		return carTOs.stream().map(DepartmentMapper::toDepartmentEntity).collect(Collectors.toList());
+	public static List<DepartmentEntity> map2Entities(List<DepartmentTO> departmentTOs) {
+		return departmentTOs.stream().map(DepartmentMapper::toDepartmentEntity).collect(Collectors.toList());
 	}
 
 }

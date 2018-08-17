@@ -10,6 +10,7 @@ import com.capgemini.dao.DepartmentDao;
 import com.capgemini.domain.CarEntity;
 import com.capgemini.domain.DepartmentEntity;
 import com.capgemini.domain.EmployeeEntity;
+
 @Repository
 public class DepartmentDaoImpl extends AbstractDao<DepartmentEntity, Long> implements DepartmentDao {
 
@@ -28,7 +29,6 @@ public class DepartmentDaoImpl extends AbstractDao<DepartmentEntity, Long> imple
 		TypedQuery<EmployeeEntity> query = entityManager.createNamedQuery(
 				"SELECT e FROM EmployeeEntity e WHERE em.departmentEntity.id=:id", EmployeeEntity.class);
 		query.setParameter("id", id);
-
 		return query.getResultList();
 	}
 

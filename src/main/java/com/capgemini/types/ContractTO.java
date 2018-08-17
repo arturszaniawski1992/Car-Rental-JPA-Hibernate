@@ -40,28 +40,60 @@ public class ContractTO {
 		return rentDate;
 	}
 
+	public void setRentDate(LocalDate rentDate) {
+		this.rentDate = rentDate;
+	}
+
 	public LocalDate getReturnDate() {
 		return returnDate;
+	}
+
+	public void setReturnDate(LocalDate returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	public Double getCost() {
 		return cost;
 	}
 
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+
 	public Long getDepartmentFromId() {
 		return departmentFromId;
+	}
+
+	public void setDepartmentFromId(Long departmentFromId) {
+		this.departmentFromId = departmentFromId;
 	}
 
 	public Long getDepartmentToId() {
 		return departmentToId;
 	}
 
-	public Long getCarEntity() {
+	public void setDepartmentToId(Long departmentToId) {
+		this.departmentToId = departmentToId;
+	}
+
+	public Long getCarTOId() {
 		return carTOId;
 	}
 
-	public Long getCustomerEntityId() {
+	public void setCarTOId(Long carTOId) {
+		this.carTOId = carTOId;
+	}
+
+	public Long getCustomerTOId() {
 		return customerTOId;
+	}
+
+	public void setCustomerTOId(Long customerTOId) {
+		this.customerTOId = customerTOId;
+	}
+	
+	public static ContractTOBuilder builder() {
+		return new ContractTOBuilder();
 	}
 
 	public static class ContractTOBuilder {

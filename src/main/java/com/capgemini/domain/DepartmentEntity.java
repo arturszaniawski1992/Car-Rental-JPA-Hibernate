@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import embedded.AdressData;
+import embedded.AdressDataEntity;
 
 @Entity
 @Table(name = "department")
@@ -30,7 +30,7 @@ public class DepartmentEntity implements Serializable {
 	@Column(length = 15, nullable = false)
 	private String mobile;
 	@Embedded
-	private AdressData adressData;
+	private AdressDataEntity adressData;
 
 	@OneToMany(mappedBy = "departmentEntity")
 	private List<EmployeeEntity> employees;
@@ -51,8 +51,6 @@ public class DepartmentEntity implements Serializable {
 		this.contractFrom = builder.contractFrom;
 		this.contractTo = builder.contractTo;
 	}
-	
-	
 
 	public Long getId() {
 		return id;
@@ -66,20 +64,40 @@ public class DepartmentEntity implements Serializable {
 		return mobile;
 	}
 
-	public AdressData getAdressData() {
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public AdressDataEntity getAdressData() {
 		return adressData;
+	}
+
+	public void setAdressData(AdressDataEntity adressData) {
+		this.adressData = adressData;
 	}
 
 	public List<EmployeeEntity> getEmployees() {
 		return employees;
 	}
 
+	public void setEmployees(List<EmployeeEntity> employees) {
+		this.employees = employees;
+	}
+
 	public List<ContractEntity> getContractFrom() {
 		return contractFrom;
 	}
 
+	public void setContractFrom(List<ContractEntity> contractFrom) {
+		this.contractFrom = contractFrom;
+	}
+
 	public List<ContractEntity> getContractTo() {
 		return contractTo;
+	}
+
+	public void setContractTo(List<ContractEntity> contractTo) {
+		this.contractTo = contractTo;
 	}
 
 	public static DepartmentEntityBuilder builder() {
@@ -89,7 +107,7 @@ public class DepartmentEntity implements Serializable {
 	public static class DepartmentEntityBuilder {
 		private Long id;
 		private String mobile;
-		private AdressData adressData;
+		private AdressDataEntity adressData;
 		private List<EmployeeEntity> employees;
 		private List<ContractEntity> contractFrom;
 		private List<ContractEntity> contractTo;
@@ -108,7 +126,7 @@ public class DepartmentEntity implements Serializable {
 			return this;
 		}
 
-		public DepartmentEntityBuilder withAdressData(AdressData adressData) {
+		public DepartmentEntityBuilder withAdressData(AdressDataEntity adressData) {
 			this.adressData = adressData;
 			return this;
 		}

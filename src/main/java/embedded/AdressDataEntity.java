@@ -3,10 +3,8 @@ package embedded;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import exception.IncorrectAdressCreated;
-
 @Embeddable
-public class AdressData {
+public class AdressDataEntity {
 
 	@Column(name = "street", length = 40, nullable = false)
 	private String street;
@@ -17,11 +15,11 @@ public class AdressData {
 	@Column(name = "post_code", length = 6, nullable = false)
 	private String postCode;
 
-	public AdressData() {
+	public AdressDataEntity() {
 		super();
 	}
 
-	public AdressData(AdressDataBuilder builder) {
+	public AdressDataEntity(AdressDataEntityBuilder builder) {
 		this.street = builder.street;
 		this.number = builder.number;
 		this.city = builder.city;
@@ -45,46 +43,46 @@ public class AdressData {
 		return postCode;
 	}
 
-	public static class AdressDataBuilder {
+	public static AdressDataEntityBuilder builder() {
+		return new AdressDataEntityBuilder();
+	}
+
+	public static class AdressDataEntityBuilder {
 
 		private String street;
 		private int number;
 		private String city;
 		private String postCode;
 
-		public AdressDataBuilder() {
+		public AdressDataEntityBuilder() {
 			super();
 		}
 
-		public AdressDataBuilder withStreet(String street) {
+		public AdressDataEntityBuilder withStreet(String street) {
 			this.street = street;
 			return this;
 		}
 
-		public AdressDataBuilder withNumber(int number) {
+		public AdressDataEntityBuilder withNumber(int number) {
 			this.number = number;
 			return this;
 
 		}
 
-		public AdressDataBuilder withCity(String city) {
+		public AdressDataEntityBuilder withCity(String city) {
 			this.city = city;
 			return this;
 
 		}
 
-		public AdressDataBuilder withPostCode(String postCode) {
+		public AdressDataEntityBuilder withPostCode(String postCode) {
 			this.postCode = postCode;
 			return this;
 
 		}
 
-		public AdressData build() throws IncorrectAdressCreated {
-			if (street != null || city != null) {
-				throw new IncorrectAdressCreated();
-
-			}
-			return new AdressData(this);
+		public AdressDataEntity build()  {
+			return new AdressDataEntity(this);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.capgemini.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -13,8 +14,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contract")
-public class ContractEntity {
+public class ContractEntity implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -53,7 +58,7 @@ public class ContractEntity {
 	}
 
 	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -66,29 +71,63 @@ public class ContractEntity {
 		return rentDate;
 	}
 
+	public void setRentDate(LocalDate rentDate) {
+		this.rentDate = rentDate;
+	}
+
 	public LocalDate getReturnDate() {
 		return returnDate;
+	}
+
+	public void setReturnDate(LocalDate returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	public Double getCost() {
 		return cost;
 	}
 
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+
 	public DepartmentEntity getDepartmentFrom() {
 		return departmentFrom;
+	}
+
+	public void setDepartmentFrom(DepartmentEntity departmentFrom) {
+		this.departmentFrom = departmentFrom;
 	}
 
 	public DepartmentEntity getDepartmentTo() {
 		return departmentTo;
 	}
 
+	public void setDepartmentTo(DepartmentEntity departmentTo) {
+		this.departmentTo = departmentTo;
+	}
+
 	public CarEntity getCarEntity() {
 		return carEntity;
+	}
+
+	public void setCarEntity(CarEntity carEntity) {
+		this.carEntity = carEntity;
 	}
 
 	public CustomerEntity getCustomerEntity() {
 		return customerEntity;
 	}
+
+	public void setCustomerEntity(CustomerEntity customerEntity) {
+		this.customerEntity = customerEntity;
+	}
+
+
+	public static ContractEntityBuilder builder() {
+		return new ContractEntityBuilder();
+	}
+
 
 	public static class ContractEntityBuilder {
 		private Long id;

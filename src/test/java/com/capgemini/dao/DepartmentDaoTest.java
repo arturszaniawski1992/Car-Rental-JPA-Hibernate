@@ -11,5 +11,6 @@ public class DepartmentDaoTest {
 
 	@Autowired
 	private DepartmentDao departmentRepository;
-
+	@Autowired
+	private EmployeeDao employeeRepository;
 }

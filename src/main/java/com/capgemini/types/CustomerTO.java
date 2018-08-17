@@ -1,8 +1,9 @@
 package com.capgemini.types;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import embedded.AdressData;
+import embedded.AdressDataEntity;
 
 public class CustomerTO {
 
@@ -13,7 +14,8 @@ public class CustomerTO {
 	private LocalDate dateOfBirth;
 	private String mobile;
 	private String mail;
-	private AdressData adressData;
+	private AdressDataEntity adressData;
+	private List<Long> contracts;
 
 	public CustomerTO() {
 		super();
@@ -28,39 +30,79 @@ public class CustomerTO {
 		this.mobile = builder.mobile;
 		this.mail = builder.mail;
 		this.adressData = builder.adressData;
-
+		this.contracts = builder.contracts;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getCreditCardNumber() {
 		return creditCardNumber;
+	}
+
+	public void setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
 	}
 
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public String getMobile() {
 		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getMail() {
 		return mail;
 	}
 
-	public AdressData getAdressData() {
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public AdressDataEntity getAdressData() {
 		return adressData;
+	}
+
+	public void setAdressData(AdressDataEntity adressData) {
+		this.adressData = adressData;
+	}
+
+	public List<Long> getContracts() {
+		return contracts;
+	}
+
+	public void setContracts(List<Long> contracts) {
+		this.contracts = contracts;
 	}
 
 	public static class CustomerTOBuilder {
@@ -71,7 +113,8 @@ public class CustomerTO {
 		private LocalDate dateOfBirth;
 		private String mobile;
 		private String mail;
-		private AdressData adressData;
+		private AdressDataEntity adressData;
+		private List<Long> contracts;
 
 		public CustomerTOBuilder() {
 
@@ -102,8 +145,13 @@ public class CustomerTO {
 			return this;
 		}
 
-		public CustomerTOBuilder withAdressData(AdressData adressData) {
+		public CustomerTOBuilder withAdressData(AdressDataEntity adressData) {
 			this.adressData = adressData;
+			return this;
+		}
+
+		public CustomerTOBuilder withContracts(List<Long> contracts) {
+			this.contracts = contracts;
 			return this;
 		}
 

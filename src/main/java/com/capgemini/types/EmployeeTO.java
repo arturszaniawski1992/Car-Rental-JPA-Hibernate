@@ -1,6 +1,7 @@
 package com.capgemini.types;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class EmployeeTO {
 
@@ -10,6 +11,9 @@ public class EmployeeTO {
 	private Double salary;
 	private LocalDate dateOfBirth;
 	private String mobile;
+	private DepartmentTO departmentTO;
+	private PositionTO positionTO;
+	private List<Long> attendCars;
 
 	EmployeeTO() {
 		super();
@@ -22,6 +26,7 @@ public class EmployeeTO {
 		this.salary = builder.salary;
 		this.dateOfBirth = builder.dateOfBirth;
 		this.mobile = builder.mobile;
+		this.attendCars = builder.attendCars;
 
 	}
 
@@ -37,20 +42,64 @@ public class EmployeeTO {
 		return firstName;
 	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
 
-	public double getSalary() {
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Double getSalary() {
 		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
 	}
 
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public String getMobile() {
 		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public DepartmentTO getDepartmentTO() {
+		return departmentTO;
+	}
+
+	public void setDepartmentTO(DepartmentTO departmentTO) {
+		this.departmentTO = departmentTO;
+	}
+
+	public PositionTO getPositionTO() {
+		return positionTO;
+	}
+
+	public void setPositionTO(PositionTO positionTO) {
+		this.positionTO = positionTO;
+	}
+
+	public List<Long> getAttendCars() {
+		return attendCars;
+	}
+
+	public void setAttendCars(List<Long> attendCars) {
+		this.attendCars = attendCars;
 	}
 
 	public static class EmployeeTOBuilder {
@@ -61,6 +110,7 @@ public class EmployeeTO {
 		private Double salary;
 		private LocalDate dateOfBirth;
 		private String mobile;
+		private List<Long> attendCars;
 
 		public EmployeeTOBuilder() {
 			super();
@@ -93,6 +143,11 @@ public class EmployeeTO {
 
 		public EmployeeTOBuilder withMobile(String mobile) {
 			this.mobile = mobile;
+			return this;
+		}
+
+		public EmployeeTOBuilder withAttendCars(List<Long> attendCars) {
+			this.attendCars = attendCars;
 			return this;
 		}
 
