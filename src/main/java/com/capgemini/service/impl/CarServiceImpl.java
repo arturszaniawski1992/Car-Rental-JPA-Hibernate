@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.dao.CarDao;
+import com.capgemini.dao.EmployeeDao;
 import com.capgemini.domain.CarEntity;
+import com.capgemini.domain.EmployeeEntity;
 import com.capgemini.mappers.CarMapper;
 import com.capgemini.service.CarService;
 import com.capgemini.types.CarTO;
@@ -18,10 +20,13 @@ import com.capgemini.types.CarTO;
 public class CarServiceImpl implements CarService {
 
 	private final CarDao carRepository;
+	private final EmployeeDao employeeRepository;
 
 	@Autowired
-	public CarServiceImpl(CarDao carRepository) {
+	public CarServiceImpl(CarDao carRepository, EmployeeDao employeeRepository) {
+		super();
 		this.carRepository = carRepository;
+		this.employeeRepository = employeeRepository;
 	}
 
 	@Override
@@ -52,14 +57,18 @@ public class CarServiceImpl implements CarService {
 	@Override
 	@Transactional(readOnly = false)
 	public void addAttendantToCar(Long idCar, Long idAttendant) {
-		// TODO Auto-generated method stub
+		CarEntity car = carRepository.findOne(idCar);
+		List<EmployeeEntity> employees = car.getAttendantEmployees();
+		employees.add(employeeRepository.findOne(idAttendant));
+		car.setAttendantEmployees(employees);
+		carRepository.save(car);
 
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public void removeCarById(Long id) {
-		// TODO Auto-generated method stub
+
 	}
 
 	@Override

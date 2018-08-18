@@ -15,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import exception.InvalidCreationException;
-
 @Entity
 @Table(name = "employee")
 public class EmployeeEntity implements Serializable {
@@ -35,9 +33,9 @@ public class EmployeeEntity implements Serializable {
 	private String lastName;
 	@Column(nullable = false)
 	private Double salary;
-	@Column(nullable = true)
+	@Column(name = "date_of_birth")
 	private LocalDate dateOfBirth;
-	@Column(length = 50, nullable = true)
+	@Column(length = 50)
 	private String mobile;
 
 	@ManyToOne
@@ -66,8 +64,6 @@ public class EmployeeEntity implements Serializable {
 		this.positionEntity = builder.positionEntity;
 		this.attendCars = builder.attendCars;
 	}
-
-	
 
 	public Long getId() {
 		return id;
@@ -141,8 +137,6 @@ public class EmployeeEntity implements Serializable {
 		this.attendCars = attendCars;
 	}
 
-
-
 	public static class EmployeeEntityBuilder {
 		private Long id;
 		private String firstName;
@@ -203,8 +197,8 @@ public class EmployeeEntity implements Serializable {
 			return this;
 		}
 
-		public EmployeeEntity build() throws InvalidCreationException {
-		
+		public EmployeeEntity build() {
+
 			return new EmployeeEntity(this);
 		}
 

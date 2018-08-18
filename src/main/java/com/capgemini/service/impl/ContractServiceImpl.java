@@ -22,6 +22,7 @@ public class ContractServiceImpl implements ContractService {
 	public ContractServiceImpl(ContractDao contractRepository) {
 		super();
 		this.contractRepository = contractRepository;
+
 	}
 
 	@Override

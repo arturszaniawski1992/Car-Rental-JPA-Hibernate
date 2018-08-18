@@ -28,15 +28,15 @@ public class CarEntity implements Serializable {
 	private String brand;
 	@Column(name = "model", length = 50, nullable = false)
 	private String model;
-	@Column(name = "power", nullable = true)
+	@Column(name = "power")
 	private Integer power;
-	@Column(name = "milleage", nullable = true)
+	@Column(name = "milleage")
 	private Integer milleage;
-	@Column(name = "engineCapacity", length = 50, nullable = true)
+	@Column(name = "engineCapacity", length = 50)
 	private Double engineCapacity;
-	@Column(name = "year", nullable = true)
+	@Column(name = "year")
 	private Integer year;
-	@Column(name = "color", nullable = true)
+	@Column(name = "color")
 	private String color;
 	@Column(name = "car_type", nullable = false)
 	private String type;

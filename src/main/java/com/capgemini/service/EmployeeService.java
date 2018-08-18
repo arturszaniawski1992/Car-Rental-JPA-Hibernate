@@ -2,13 +2,13 @@ package com.capgemini.service;
 
 import java.util.List;
 
-import com.capgemini.domain.EmployeeEntity;
+import com.capgemini.types.EmployeeTO;
 
 public interface EmployeeService {
 
-	EmployeeEntity getEmployee(Long id);
+	EmployeeTO getEmployeeById(Long id);
 
-	List<EmployeeEntity> findAll();
+	List<EmployeeTO> findAll();
 
-	EmployeeEntity add(EmployeeEntity employeeEntity);
+	EmployeeTO add(EmployeeTO employeeTO);
 }

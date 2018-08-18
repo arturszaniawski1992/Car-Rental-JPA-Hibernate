@@ -29,6 +29,7 @@ public class DepartmentEntity implements Serializable {
 	private Long id;
 	@Column(length = 15, nullable = false)
 	private String mobile;
+	
 	@Embedded
 	private AdressDataEntity adressData;
 

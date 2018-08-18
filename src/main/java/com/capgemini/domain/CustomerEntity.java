@@ -33,11 +33,11 @@ public class CustomerEntity implements Serializable {
 	private String lastName;
 	@Column(nullable = false)
 	private String creditCardNumber;
-	@Column(nullable = true)
+	@Column(name = "date_of_birth")
 	private LocalDate dateOfBirth;
-	@Column(nullable = true, length = 50)
+	@Column(length = 50)
 	private String mobile;
-	@Column(nullable = true, length = 50)
+	@Column(length = 50)
 	private String mail;
 	@Embedded
 	private AdressDataEntity adressData;

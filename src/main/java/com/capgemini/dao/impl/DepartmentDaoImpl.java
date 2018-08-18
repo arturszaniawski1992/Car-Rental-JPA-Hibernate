@@ -27,7 +27,7 @@ public class DepartmentDaoImpl extends AbstractDao<DepartmentEntity, Long> imple
 	@Override
 	public List<EmployeeEntity> findEmployeesByDepartmentEntityId(Long id) {
 		TypedQuery<EmployeeEntity> query = entityManager.createNamedQuery(
-				"SELECT e FROM EmployeeEntity e WHERE em.departmentEntity.id=:id", EmployeeEntity.class);
+				"SELECT em FROM EmployeeEntity em WHERE em.departmentEntity.id=:id", EmployeeEntity.class);
 		query.setParameter("id", id);
 		return query.getResultList();
 	}

@@ -41,8 +41,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	@Transactional(readOnly = false)
 	public DepartmentTO update(DepartmentTO departmentTO) {
-		// TODO Auto-generated method stub
-		return null;
+		DepartmentEntity departmentEntity = departmentRepository
+				.update(DepartmentMapper.toDepartmentEntity(departmentTO));
+		return DepartmentMapper.toDepartmentTO(departmentEntity);
 	}
 
 	@Override

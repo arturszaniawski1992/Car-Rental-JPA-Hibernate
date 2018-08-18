@@ -18,9 +18,7 @@ public class CarMapper {
 		return new CarTOBuilder().withId(carEntity.getId()).withBrand(carEntity.getBrand())
 				.withModel(carEntity.getModel()).withPower(carEntity.getPower()).withMilleage(carEntity.getMilleage())
 				.withEngineCapacity(carEntity.getEngineCapacity()).withYear(carEntity.getYear())
-				.withColor(carEntity.getColor()).withType(carEntity.getType())
-
-				.build();
+				.withColor(carEntity.getColor()).withType(carEntity.getType()).build();
 
 	}
 
