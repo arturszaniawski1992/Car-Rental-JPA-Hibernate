@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import exception.InvalidCreationException;
+
 @Entity
 @Table(name = "employee")
 public class EmployeeEntity implements Serializable {
@@ -198,6 +200,9 @@ public class EmployeeEntity implements Serializable {
 		}
 
 		public EmployeeEntity build() {
+			if (firstName == null || lastName == null) {
+				throw new InvalidCreationException("Incorrect employee to be created");
+			}
 
 			return new EmployeeEntity(this);
 		}

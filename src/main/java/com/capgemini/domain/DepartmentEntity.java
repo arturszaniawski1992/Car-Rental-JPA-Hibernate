@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import embedded.AdressDataEntity;
+import exception.InvalidCreationException;
 
 @Entity
 @Table(name = "department")
@@ -148,6 +149,9 @@ public class DepartmentEntity implements Serializable {
 		}
 
 		public DepartmentEntity build() {
+			if (mobile == null || adressData == null) {
+				throw new InvalidCreationException("Incorrect department to be created");
+			}
 			return new DepartmentEntity(this);
 		}
 

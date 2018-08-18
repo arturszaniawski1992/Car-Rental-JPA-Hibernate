@@ -172,4 +172,30 @@ public class CarServiceTest {
 		assertEquals("Vectra", updatedCar.getModel());
 	}
 
+	@Test
+	public void shouldDeleteCarById() {
+		// given
+
+		String type = "sedan";
+		String brand = "Opel";
+
+		CarTO car1 = new CarTOBuilder().withBrand("Opel").withModel("Astra").withType("sedan").withColor("black")
+				.build();
+		CarTO car2 = new CarTOBuilder().withBrand("Opel").withModel("Vectra").withType("sedan").withColor("red")
+				.build();
+		CarTO car3 = new CarTOBuilder().withBrand("Opel").withModel("Vectra").withType("sedan").withColor("red")
+				.build();
+		carService.saveCar(car1);
+		carService.saveCar(car2);
+		carService.saveCar(car3);
+	
+		// when
+		carService.removeCarById(car3.getId());
+		List<CarTO> cars = carService.getCarsByCarTypeAndBrand(type, brand);
+
+		// then
+		assertThat(carService.findCarById(car3.getId())).isNull();
+		assertThat(cars.size()).isEqualTo(2);
+	}
+
 }

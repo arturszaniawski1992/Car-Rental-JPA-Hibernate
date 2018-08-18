@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import exception.InvalidCreationException;
+
 @Entity
 @Table(name = "position")
 public class PositionEntity implements Serializable {
@@ -92,6 +94,9 @@ public class PositionEntity implements Serializable {
 		}
 
 		public PositionEntity build() {
+			if (position == null) {
+				throw new InvalidCreationException("Incorrect position to be created");
+			}
 
 			return new PositionEntity(this);
 		}

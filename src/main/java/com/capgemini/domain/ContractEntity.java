@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import exception.InvalidCreationException;
+
 @Entity
 @Table(name = "contract")
 public class ContractEntity implements Serializable {
@@ -193,6 +195,9 @@ public class ContractEntity implements Serializable {
 		
 		
 		public ContractEntity build() {
+			  if (rentDate == null || returnDate == null) {
+	                throw new InvalidCreationException("Incorrect contract to be created");
+	            }
 			return new ContractEntity(this);
 		}
 	}

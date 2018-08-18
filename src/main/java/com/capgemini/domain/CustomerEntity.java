@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import embedded.AdressDataEntity;
+import exception.InvalidCreationException;
 
 @Entity
 @Table(name = "customer")
@@ -157,6 +158,9 @@ public class CustomerEntity implements Serializable {
 		}
 
 		public CustomerEntity build() {
+			if (firstName == null || lastName == null || mobile == null) {
+				throw new InvalidCreationException("Incorrect customer to be created");
+			}
 
 			return new CustomerEntity(this);
 		}

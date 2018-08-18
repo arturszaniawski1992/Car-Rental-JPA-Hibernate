@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import exception.InvalidCreationException;
+
 @Entity
 @Table(name = "car")
 public class CarEntity implements Serializable {
@@ -22,7 +24,7 @@ public class CarEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "brand", length = 50, nullable = false)
 	private String brand;
@@ -238,6 +240,9 @@ public class CarEntity implements Serializable {
 		}
 
 		public CarEntity build() {
+			   if (brand == null || model == null) {
+	                throw new InvalidCreationException("Incorrect car to be created");
+	            }
 			return new CarEntity(this);
 		}
 
