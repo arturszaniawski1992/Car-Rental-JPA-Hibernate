@@ -31,5 +31,7 @@ public class DepartmentDaoImpl extends AbstractDao<DepartmentEntity, Long> imple
 		query.setParameter("id", id);
 		return query.getResultList();
 	}
+	
+	
 
 }

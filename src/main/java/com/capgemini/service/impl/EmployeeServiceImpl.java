@@ -35,11 +35,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return EmployeeMapper.map2TOs(allEmployees);
 	}
 
+
 	@Override
 	@Transactional(readOnly = false)
-	public EmployeeTO add(EmployeeTO employeeTO) {
-		EmployeeEntity employee = employeeRepository.save(EmployeeMapper.toEmployeeEntity(employeeTO));
-		return EmployeeMapper.toEmployeeTO(employee);
+	public EmployeeTO saveEmployee(EmployeeTO employeeTO) {
+		EmployeeEntity employeeEntity = employeeRepository.save(EmployeeMapper.toEmployeeEntity(employeeTO));
+		return EmployeeMapper.toEmployeeTO(employeeEntity);
 	}
 
 }

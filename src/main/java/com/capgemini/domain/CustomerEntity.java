@@ -101,7 +101,7 @@ public class CustomerEntity implements Serializable {
 	public List<ContractEntity> getContracts() {
 		return contracts;
 	}
-	
+
 	public static CustomerEntityBuilder builder() {
 		return new CustomerEntityBuilder();
 	}

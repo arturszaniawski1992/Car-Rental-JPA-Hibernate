@@ -68,6 +68,13 @@ public class CarServiceImpl implements CarService {
 	@Override
 	@Transactional(readOnly = false)
 	public void removeCarById(Long id) {
+		CarEntity car = carRepository.findOne(id);
+		car.getAttendantEmployees().stream().forEach(em -> {
+			List<CarEntity> list = em.getAttendCars();
+			list.remove(car);
+			em.setAttendCars(list);
+		});
+		carRepository.delete(id);
 
 	}
 

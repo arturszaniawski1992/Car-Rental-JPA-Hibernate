@@ -2,6 +2,7 @@ package com.capgemini.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capgemini.domain.CarEntity;
-import com.capgemini.domain.EmployeeEntity;
 import com.capgemini.types.CarTO;
 import com.capgemini.types.CarTO.CarTOBuilder;
+import com.capgemini.types.EmployeeTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -98,6 +98,78 @@ public class CarServiceTest {
 		int size = carService.findAll().size();
 		// then
 		assertEquals(1, size);
+	}
+
+	@Test
+	@Transactional
+	public void testShouldFindCarByTypeAndMark() {
+		// given
+		String brand = "Opel";
+		String type = "sedan";
+
+		CarTO car1 = new CarTOBuilder().withBrand("Opel").withModel("Astra").withType("sedan").withColor("black")
+				.build();
+		CarTO car2 = new CarTOBuilder().withBrand("Opel").withModel("Vectra").withType("sedan").withColor("red")
+				.build();
+		List<CarTO> cars = new ArrayList<>();
+		cars.add(car1);
+		cars.add(car2);
+		carService.saveCar(car1);
+		carService.saveCar(car2);
+
+		// when
+		List<CarTO> foundCars = carService.getCarsByCarTypeAndBrand(type, brand);
+
+		// then
+		assertNotNull(foundCars);
+		assertEquals(0, foundCars.size());
+
+	}
+
+	@Test
+	public void shouldAddAttendantToCarAndCarToAttendant() {
+		// given
+
+		long idEmployee = employeeService.findAll().size() - 1L;
+		long idCar = carService.findAll().size() - 1L;
+		EmployeeTO em = employeeService.getEmployeeById(idEmployee);
+		CarTO car = carService.findCarById(idCar);
+		int sizeOfAttendants = car.getAttendantEmployees().size();
+		int sizeOfCars = em.getAttendCars().size();
+		// when
+		carService.addAttendantToCar(idCar, idEmployee);
+		// then
+		assertEquals(sizeOfAttendants + 1, car.getAttendantEmployees().size());
+		assertEquals(sizeOfCars + 1, em.getAttendCars().size());
+		;
+	}
+
+	@Test
+	public void shouldGetListOfCarsByAttendants() {
+		// given
+		long idEmployee = employeeService.findAll().size() - 1L;
+		EmployeeTO employee = employeeService.getEmployeeById(idEmployee);
+		// when
+		List<CarTO> cars = carService.getCarsByAttendantId(idEmployee);
+		// then
+		assertEquals(employee.getAttendCars().size(), cars.size());
+		assertEquals(employee.getAttendCars().get(0), cars.get(0));
+	}
+
+	@Test
+	public void shouldUpdateVersionAfterUpdate() {
+		// given
+		CarTO car1 = new CarTOBuilder().withBrand("Opel").withModel("Astra").withType("sedan").withColor("black")
+				.build();
+		// when
+		CarTO addedCar = carService.add(car1);
+		addedCar.setColor("pink");
+		addedCar.setModel("Vectra");
+		CarTO updatedCar = carService.update(addedCar);
+		// then
+		assertEquals("Opel", addedCar.getBrand());
+		assertEquals("sedan", addedCar.getType());
+		assertEquals("Vectra", updatedCar.getModel());
 	}
 
 }

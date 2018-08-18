@@ -105,4 +105,5 @@ public class CarDaoTest {
 		assertTrue(carsByAttendant.size() == 1);
 		assertEquals(carsByAttendant.get(0).getAttendantEmployees(), car1.getAttendantEmployees());
 	}
+
 }

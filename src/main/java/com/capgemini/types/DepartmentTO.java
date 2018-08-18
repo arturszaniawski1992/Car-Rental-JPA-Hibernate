@@ -2,12 +2,10 @@ package com.capgemini.types;
 
 import java.util.List;
 
-import embedded.AdressDataEntity;
-
 public class DepartmentTO {
-
+	private Long id;
 	private String mobile;
-	private AdressDataEntity adressData;
+	private AdressDataTO adressData;
 	private List<Long> employees;
 	private List<Long> contractFrom;
 	private List<Long> contractTo;
@@ -17,12 +15,21 @@ public class DepartmentTO {
 	}
 
 	public DepartmentTO(DepartmentTOBuilder builder) {
+		this.id = builder.id;
 		this.mobile = builder.mobile;
 		this.adressData = builder.adressData;
 		this.employees = builder.employees;
 		this.contractFrom = builder.contractFrom;
 		this.contractTo = builder.contractTo;
 
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getMobile() {
@@ -33,11 +40,11 @@ public class DepartmentTO {
 		this.mobile = mobile;
 	}
 
-	public AdressDataEntity getAdressData() {
+	public AdressDataTO getAdressData() {
 		return adressData;
 	}
 
-	public void setAdressData(AdressDataEntity adressData) {
+	public void setAdressData(AdressDataTO adressData) {
 		this.adressData = adressData;
 	}
 
@@ -70,9 +77,9 @@ public class DepartmentTO {
 	}
 
 	public static class DepartmentTOBuilder {
-
+		private Long id;
 		private String mobile;
-		private AdressDataEntity adressData;
+		private AdressDataTO adressData;
 		private List<Long> employees;
 		private List<Long> contractFrom;
 		private List<Long> contractTo;
@@ -82,12 +89,17 @@ public class DepartmentTO {
 
 		}
 
+		public DepartmentTOBuilder withId(Long id) {
+			this.id = id;
+			return this;
+		}
+
 		public DepartmentTOBuilder withMobile(String mobile) {
 			this.mobile = mobile;
 			return this;
 		}
 
-		public DepartmentTOBuilder withAdressData(AdressDataEntity adressData) {
+		public DepartmentTOBuilder withAdressData(AdressDataTO adressData) {
 			this.adressData = adressData;
 			return this;
 		}

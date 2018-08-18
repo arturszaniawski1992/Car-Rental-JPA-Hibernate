@@ -10,5 +10,6 @@ public interface EmployeeService {
 
 	List<EmployeeTO> findAll();
 
-	EmployeeTO add(EmployeeTO employeeTO);
+	EmployeeTO saveEmployee(EmployeeTO employeeTO);
+
 }

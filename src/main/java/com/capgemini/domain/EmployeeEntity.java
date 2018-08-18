@@ -31,7 +31,7 @@ public class EmployeeEntity implements Serializable {
 	private String firstName;
 	@Column(length = 50, nullable = false)
 	private String lastName;
-	@Column(nullable = false)
+	@Column
 	private Double salary;
 	@Column(name = "date_of_birth")
 	private LocalDate dateOfBirth;

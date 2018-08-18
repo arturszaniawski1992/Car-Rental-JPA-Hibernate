@@ -15,14 +15,14 @@ public class DepartmentMapper {
 			return null;
 
 		return new DepartmentTOBuilder().withMobile(departmentEntity.getMobile())
-				.withAdressData(departmentEntity.getAdressData()).build();
+				.withAdressData(AdressMapper.toAdressDataTO(departmentEntity.getAdressData())).build();
 	}
 
 	public static DepartmentEntity toDepartmentEntity(DepartmentTO departmentTO) {
 		if (departmentTO == null)
 			return null;
 		return new DepartmentEntityBuilder().withMobile(departmentTO.getMobile())
-				.withAdressData(departmentTO.getAdressData()).build();
+				.withAdressData(AdressMapper.toAdressDataEntity(departmentTO.getAdressData())).build();
 
 	}
 

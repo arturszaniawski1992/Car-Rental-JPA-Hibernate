@@ -31,16 +31,32 @@ public class AdressDataEntity {
 		return street;
 	}
 
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
 	public int getNumber() {
 		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public String getCity() {
 		return city;
 	}
 
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getPostCode() {
 		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
 
 	public static AdressDataEntityBuilder builder() {
@@ -81,7 +97,7 @@ public class AdressDataEntity {
 
 		}
 
-		public AdressDataEntity build()  {
+		public AdressDataEntity build() {
 			return new AdressDataEntity(this);
 		}
 	}
