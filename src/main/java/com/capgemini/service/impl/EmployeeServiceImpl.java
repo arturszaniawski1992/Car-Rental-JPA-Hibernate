@@ -19,7 +19,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeDao employeeRepository;
 
 	@Autowired
-
 	public EmployeeServiceImpl(EmployeeDao employeeRepository) {
 		this.employeeRepository = employeeRepository;
 	}
@@ -34,7 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<EmployeeEntity> allEmployees = employeeRepository.findAll();
 		return EmployeeMapper.map2TOs(allEmployees);
 	}
-
 
 	@Override
 	@Transactional(readOnly = false)

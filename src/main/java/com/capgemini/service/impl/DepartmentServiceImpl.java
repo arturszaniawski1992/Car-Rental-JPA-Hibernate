@@ -55,18 +55,34 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	@Transactional(readOnly = false)
 	public void remove(Long id) {
+		DepartmentEntity departmentEntity = departmentRepository.findOne(id);
+		departmentEntity.getEmployees().stream().forEach(em -> em.setDepartmentEntity(null));
+		departmentRepository.delete(id);
 
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public void addEmployeeToDepartment(Long idEmployee, Long idDepartment) {
+		DepartmentEntity departmentEntity = departmentRepository.findOne(idDepartment);
+		EmployeeEntity employeeEntity = employeeRepository.findOne(idEmployee);
+		List<EmployeeEntity> employess = departmentEntity.getEmployees();
+		employess.add(employeeEntity);
+		departmentEntity.setEmployees(employess);
+		departmentRepository.save(departmentEntity);
 
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public void removeEmployeeFromDepartment(Long idEmployee, Long idDepartment) {
+		EmployeeEntity employeeEntity = employeeRepository.findOne(idEmployee);
+		DepartmentEntity departmentEntity = employeeEntity.getDepartmentEntity();
+		employeeEntity.setDepartmentEntity(null);
+		List<EmployeeEntity> employees = departmentEntity.getEmployees();
+		employees.remove(employeeEntity);
+		departmentEntity.setEmployees(employees);
+		departmentRepository.save(departmentEntity);
 
 	}
 

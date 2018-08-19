@@ -1,5 +1,6 @@
 package com.capgemini.dao.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -32,6 +33,24 @@ public class CarDaoImpl extends AbstractDao<CarEntity, Long> implements CarDao {
 				"select car from CarEntity car  where :id MEMBER OF car.attendantEmployees", CarEntity.class);
 		query.setParameter("id", employee);
 		return query.getResultList();
+	}
+
+	public List<CarEntity> findCarsRentedByMoreThenTenCustomers() {
+		TypedQuery<CarEntity> query = entityManager.createQuery(
+				"select ce from CarEntity ce join ce.contracts c group by ce.id having count(distinct c.customerEntity.id)>=10",
+				CarEntity.class);
+		return query.getResultList();
+
+	}
+
+	@Override
+	public int getCountOfCarsRentedBetwenDates(LocalDate firstDate, LocalDate secondDate) {
+		TypedQuery<CarEntity> query = entityManager.createQuery(
+				"select count(c) from ContractEntity c where c.rentDate between :firstDate and :secondDate",
+				CarEntity.class);
+		query.setParameter("firstDate", firstDate);
+		query.setParameter("secondDate", secondDate);
+		return query.getMaxResults();
 	}
 
 }

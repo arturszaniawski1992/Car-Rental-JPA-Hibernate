@@ -7,18 +7,26 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.capgemini.listeners.InsertListener;
+import com.capgemini.listeners.UpdateListener;
 
 import embedded.AdressDataEntity;
 import exception.InvalidCreationException;
 
 @Entity
 @Table(name = "department")
-public class DepartmentEntity implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@EntityListeners({ UpdateListener.class, InsertListener.class })
+public class DepartmentEntity extends AbstractEntity implements Serializable {
 
 	/**
 	 * 

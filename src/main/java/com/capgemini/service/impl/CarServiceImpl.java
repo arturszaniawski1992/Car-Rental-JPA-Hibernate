@@ -1,5 +1,6 @@
 package com.capgemini.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +103,17 @@ public class CarServiceImpl implements CarService {
 	public CarTO saveCar(CarTO carTO) {
 		CarEntity carEntity = carRepository.save(CarMapper.toCarEntity(carTO));
 		return CarMapper.toCarTO(carEntity);
+	}
+
+	@Override
+	public List<CarTO> getCarsRentedByMoreThenTenCustomers() {
+		List<CarEntity> cars = carRepository.findCarsRentedByMoreThenTenCustomers();
+		return CarMapper.map2TOs(cars);
+
+	}
+
+	@Override
+	public int getCountOfCarsRentedBetwenDates(LocalDate firstDate, LocalDate secondDate) {
+		return carRepository.getCountOfCarsRentedBetwenDates(firstDate, secondDate);
 	}
 }

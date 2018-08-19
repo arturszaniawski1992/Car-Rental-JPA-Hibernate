@@ -161,6 +161,8 @@ public class CarServiceTest {
 		// given
 		CarTO car1 = new CarTOBuilder().withBrand("Opel").withModel("Astra").withType("sedan").withColor("black")
 				.build();
+
+		carService.add(car1);
 		// when
 		CarTO addedCar = carService.add(car1);
 		addedCar.setColor("pink");
@@ -179,16 +181,16 @@ public class CarServiceTest {
 		String type = "sedan";
 		String brand = "Opel";
 
-		CarTO car1 = new CarTOBuilder().withBrand("Opel").withModel("Astra").withType("sedan").withColor("black")
-				.build();
-		CarTO car2 = new CarTOBuilder().withBrand("Opel").withModel("Vectra").withType("sedan").withColor("red")
-				.build();
-		CarTO car3 = new CarTOBuilder().withBrand("Opel").withModel("Vectra").withType("sedan").withColor("red")
-				.build();
-		carService.saveCar(car1);
-		carService.saveCar(car2);
-		carService.saveCar(car3);
-	
+		CarTO car1 = new CarTOBuilder().withId(1L).withBrand("Opel").withModel("Astra").withType("sedan")
+				.withColor("black").build();
+		CarTO car2 = new CarTOBuilder().withId(2L).withBrand("Opel").withModel("Vectra").withType("sedan")
+				.withColor("red").build();
+		CarTO car3 = new CarTOBuilder().withId(3L).withBrand("Opel").withModel("Vectra").withType("sedan")
+				.withColor("red").build();
+		carService.add(car1);
+		carService.add(car2);
+		carService.add(car3);
+
 		// when
 		carService.removeCarById(car3.getId());
 		List<CarTO> cars = carService.getCarsByCarTypeAndBrand(type, brand);
