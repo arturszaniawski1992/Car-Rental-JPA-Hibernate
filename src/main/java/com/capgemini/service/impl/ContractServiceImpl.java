@@ -59,7 +59,7 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public void deleteAll() {
 		contractRepository.deleteAll();
-		
+
 	}
 
 }
