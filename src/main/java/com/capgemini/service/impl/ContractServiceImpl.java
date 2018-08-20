@@ -19,8 +19,10 @@ public class ContractServiceImpl implements ContractService {
 	private final ContractDao contractRepository;
 
 	@Autowired
+	ContractMapper contractMapper;
+
+	@Autowired
 	public ContractServiceImpl(ContractDao contractRepository) {
-		super();
 		this.contractRepository = contractRepository;
 
 	}
@@ -28,12 +30,12 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public List<ContractTO> findAll() {
 		List<ContractEntity> allContracts = contractRepository.findAll();
-		return ContractMapper.map2TOs(allContracts);
+		return contractMapper.map2TOs(allContracts);
 	}
 
 	@Override
 	public ContractTO findOne(Long id) {
-		return ContractMapper.toContractTO(contractRepository.findOne(id));
+		return contractMapper.toContractTO(contractRepository.findOne(id));
 	}
 
 }

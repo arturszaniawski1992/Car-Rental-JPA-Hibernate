@@ -54,8 +54,11 @@ public class CustomerEntity extends AbstractEntity implements Serializable {
 	@OneToMany(mappedBy = "customerEntity")
 	private List<ContractEntity> contracts;
 
+	/**
+	 * Default constructor for customer entity.
+	 *
+	 */
 	public CustomerEntity() {
-		super();
 	}
 
 	public CustomerEntity(CustomerEntityBuilder builder) {
@@ -126,45 +129,117 @@ public class CustomerEntity extends AbstractEntity implements Serializable {
 		private AdressDataEntity adressData;
 		private List<ContractEntity> contracts;
 
+		/**
+		 * Default constructor for customer entity builder.
+		 *
+		 */
 		public CustomerEntityBuilder() {
-			super();
 		}
 
+		/**
+		 * This is the method which add id to customer.
+		 * 
+		 * @param Long
+		 *            as id for customer.
+		 * @return Id of customer.
+		 */
 		public CustomerEntityBuilder withId(Long id) {
 			this.id = id;
 			return this;
 		}
 
+		/**
+		 * This is the method which add first name to customer.
+		 * 
+		 * @param String
+		 *            as first name of customer.
+		 * @return first name of customer.
+		 */
 		public CustomerEntityBuilder withFirstName(String firstName) {
 			this.firstName = firstName;
 			return this;
 		}
 
+		/**
+		 * This is the method which add last name to customer.
+		 * 
+		 * @param String
+		 *            as last name of customer.
+		 * @return last name of customer.
+		 */
 		public CustomerEntityBuilder withLastName(String lastName) {
 			this.lastName = lastName;
 			return this;
 		}
 
+		/**
+		 * This is the method which add credit card number to customer.
+		 * 
+		 * @param String
+		 *            as credit card number.
+		 * @return credit card number of customer.
+		 */
 		public CustomerEntityBuilder withCreditCardNumber(String creditCardNumber) {
 			this.creditCardNumber = creditCardNumber;
 			return this;
 		}
 
+		/**
+		 * This is the method which add date of birth to customer.
+		 * 
+		 * @param LocalDate
+		 *            as date of birth of customer.
+		 * @return date of birth of customer.
+		 */
 		public CustomerEntityBuilder withDateOfBirth(LocalDate dateOfBirth) {
 			this.dateOfBirth = dateOfBirth;
 			return this;
 		}
 
+		/**
+		 * This is the method which add mobile to customer.
+		 * 
+		 * @param String
+		 *            as mobile of customer.
+		 * @return mobile of customer.
+		 */
+		public CustomerEntityBuilder withMobile(String mobile) {
+			this.mobile = mobile;
+			return this;
+		}
+
+		/**
+		 * This is the method which add adress to customer.
+		 * 
+		 * @param AdressDataEntity
+		 *            as adress for customer.
+		 * @return adress of customer.
+		 */
 		public CustomerEntityBuilder withAdressData(AdressDataEntity adressData) {
 			this.adressData = adressData;
 			return this;
 		}
 
+		/**
+		 * This is the method which add contracts to customer.
+		 * 
+		 * @param List
+		 *            as contracts for customer.
+		 * @return contracts of customer.
+		 */
 		public CustomerEntityBuilder withContracts(List<ContractEntity> contracts) {
 			this.contracts = contracts;
 			return this;
 		}
 
+		/**
+		 * This is the method which build customer entity and if there is no
+		 * demanded params throw exception.
+		 * 
+		 * @param Obligatory
+		 *            String firstname, String lastname, String mobile,.
+		 * @return Customer entity.
+		 */
 		public CustomerEntity build() {
 			if (firstName == null || lastName == null || mobile == null) {
 				throw new InvalidCreationException("Incorrect customer to be created");

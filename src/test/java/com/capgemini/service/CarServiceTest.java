@@ -18,10 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.capgemini.types.CarTO;
 import com.capgemini.types.CarTO.CarTOBuilder;
 import com.capgemini.types.EmployeeTO;
+import com.capgemini.types.EmployeeTO.EmployeeTOBuilder;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.profiles.active=hsql")
 @Transactional
+
 public class CarServiceTest {
 
 	@Autowired
@@ -74,10 +76,10 @@ public class CarServiceTest {
 	@Test
 	public void shouldAddCarAndReturnAddedCar() {
 		// given
-		CarTO carTO = new CarTOBuilder().withBrand("Audi").withModel("A4").withColor("black").withType("sedan").build();
+		CarTO car = new CarTOBuilder().withBrand("Audi").withModel("A4").withColor("black").withType("sedan").build();
 		int sizeBeforeAdding = carService.findAll().size();
 		// when
-		CarTO addedCar = carService.add(carTO);
+		CarTO addedCar = carService.saveCar(car);
 		// then
 		assertEquals("Audi", addedCar.getBrand());
 		assertEquals("sedan", addedCar.getType());
@@ -101,7 +103,6 @@ public class CarServiceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testShouldFindCarByTypeAndMark() {
 		// given
 		String brand = "Opel";
@@ -129,31 +130,23 @@ public class CarServiceTest {
 	@Test
 	public void shouldAddAttendantToCarAndCarToAttendant() {
 		// given
+		CarTO car = new CarTOBuilder().withBrand("Audi").withType("sedan").withModel("A4").withPower(200)
+				.withEngineCapacity(1.8).withColor("Black").withYear(2015).build();
+		CarTO savedCar = carService.saveCar(car);
 
-		long idEmployee = employeeService.findAll().size() - 1L;
-		long idCar = carService.findAll().size() - 1L;
-		EmployeeTO em = employeeService.getEmployeeById(idEmployee);
-		CarTO car = carService.findCarById(idCar);
-		int sizeOfAttendants = car.getAttendantEmployees().size();
-		int sizeOfCars = em.getAttendCars().size();
-		// when
-		carService.addAttendantToCar(idCar, idEmployee);
-		// then
-		assertEquals(sizeOfAttendants + 1, car.getAttendantEmployees().size());
-		assertEquals(sizeOfCars + 1, em.getAttendCars().size());
-		;
-	}
+		EmployeeTO emp1 = new EmployeeTOBuilder().withFirstName("Artur").withLastName("Szaniawski").withSalary(15000)
+				.build();
 
-	@Test
-	public void shouldGetListOfCarsByAttendants() {
-		// given
-		long idEmployee = employeeService.findAll().size() - 1L;
-		EmployeeTO employee = employeeService.getEmployeeById(idEmployee);
+		EmployeeTO savedEmployee = employeeService.saveEmployee(emp1);
+
 		// when
-		List<CarTO> cars = carService.getCarsByAttendantId(idEmployee);
+		carService.addAttendantToCar(savedCar.getId(), savedEmployee.getId());
+		List<CarTO> workers = carService.getCarsByAttendantId(savedEmployee.getId());
+
 		// then
-		assertEquals(employee.getAttendCars().size(), cars.size());
-		assertEquals(employee.getAttendCars().get(0), cars.get(0));
+		assertThat(workers.size()).isEqualTo(1);
+		assertThat(employeeService.getEmployeeById(savedEmployee.getId()).getAttendCars().get(0))
+				.isEqualTo(savedCar.getId());
 	}
 
 	@Test
@@ -162,9 +155,8 @@ public class CarServiceTest {
 		CarTO car1 = new CarTOBuilder().withBrand("Opel").withModel("Astra").withType("sedan").withColor("black")
 				.build();
 
-		carService.add(car1);
 		// when
-		CarTO addedCar = carService.add(car1);
+		CarTO addedCar = carService.saveCar(car1);
 		addedCar.setColor("pink");
 		addedCar.setModel("Vectra");
 		CarTO updatedCar = carService.update(addedCar);
@@ -187,12 +179,12 @@ public class CarServiceTest {
 				.withColor("red").build();
 		CarTO car3 = new CarTOBuilder().withId(3L).withBrand("Opel").withModel("Vectra").withType("sedan")
 				.withColor("red").build();
-		carService.add(car1);
-		carService.add(car2);
-		carService.add(car3);
+		carService.saveCar(car1);
+		carService.saveCar(car2);
+		carService.saveCar(car3);
 
 		// when
-		carService.removeCarById(car3.getId());
+		carService.removeCarById(car2.getId());
 		List<CarTO> cars = carService.getCarsByCarTypeAndBrand(type, brand);
 
 		// then

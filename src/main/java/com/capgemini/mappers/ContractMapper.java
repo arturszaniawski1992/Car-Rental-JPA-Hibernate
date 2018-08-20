@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
+
 import com.capgemini.domain.CarEntity;
 import com.capgemini.domain.ContractEntity;
 import com.capgemini.domain.ContractEntity.ContractEntityBuilder;
@@ -14,12 +16,21 @@ import com.capgemini.domain.DepartmentEntity;
 import com.capgemini.types.ContractTO;
 import com.capgemini.types.ContractTO.ContractTOBuilder;
 
+@Component
 public class ContractMapper {
 
 	@PersistenceContext
-	static EntityManager entityManager;
+	private EntityManager entityManager;
 
-	public static ContractTO toContractTO(ContractEntity contractEntity) {
+	/**
+	 * This is the method which map contract entity to contract TO.
+	 * 
+	 * @param ContractEntity
+	 *            as contract.
+	 * 
+	 * @return ContractTO.
+	 */
+	public ContractTO toContractTO(ContractEntity contractEntity) {
 		if (contractEntity == null)
 			return null;
 		return new ContractTOBuilder().withId(contractEntity.getId()).withRentDate(contractEntity.getRentDate())
@@ -30,7 +41,15 @@ public class ContractMapper {
 				.withCustomerId(contractEntity.getCustomerEntity().getId()).build();
 	}
 
-	public static ContractEntity toContractEntity(ContractTO contractTO) {
+	/**
+	 * This is the method which map contract TO to contract Entity.
+	 * 
+	 * @param ContractTO
+	 *            as contract.
+	 * 
+	 * @return ContractEntity.
+	 */
+	public ContractEntity toContractEntity(ContractTO contractTO) {
 		if (contractTO == null)
 			return null;
 		DepartmentEntity departmentEntity = new DepartmentEntity();
@@ -49,12 +68,28 @@ public class ContractMapper {
 
 	}
 
-	public static List<ContractTO> map2TOs(List<ContractEntity> contractEntities) {
-		return contractEntities.stream().map(ContractMapper::toContractTO).collect(Collectors.toList());
+	/**
+	 * This is the method which map list of contracts TO to contracts entity.
+	 * 
+	 * @param List
+	 *            of ContractEntities as list of contracts.
+	 * 
+	 * @return List of contracts TO.
+	 */
+	public List<ContractTO> map2TOs(List<ContractEntity> contractEntities) {
+		return contractEntities.stream().map(this::toContractTO).collect(Collectors.toList());
 	}
 
-	public static List<ContractEntity> map2Entities(List<ContractTO> contractTOs) {
-		return contractTOs.stream().map(ContractMapper::toContractEntity).collect(Collectors.toList());
+	/**
+	 * This is the method which map list of contracts entities to contracts TO.
+	 * 
+	 * @param List
+	 *            of ContractTOs as list of contracts.
+	 * 
+	 * @return List of contracts entities.
+	 */
+	public List<ContractEntity> map2Entities(List<ContractTO> contractTOs) {
+		return contractTOs.stream().map(this::toContractEntity).collect(Collectors.toList());
 	}
 
 }

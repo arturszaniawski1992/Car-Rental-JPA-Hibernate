@@ -53,11 +53,15 @@ public class ContractEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_customer")
 	private CustomerEntity customerEntity;
 
+	/**
+	 * Default constructor for car contract entity.
+	 *
+	 */
 	public ContractEntity() {
 	}
 
 	public ContractEntity(ContractEntityBuilder builder) {
-		this.id=builder.id;
+		this.id = builder.id;
 		this.rentDate = builder.rentDate;
 		this.returnDate = builder.returnDate;
 		this.cost = builder.cost;
@@ -66,8 +70,6 @@ public class ContractEntity extends AbstractEntity implements Serializable {
 		this.carEntity = builder.carEntity;
 		this.customerEntity = builder.customerEntity;
 	}
-
-	
 
 	public Long getId() {
 		return id;
@@ -133,11 +135,9 @@ public class ContractEntity extends AbstractEntity implements Serializable {
 		this.customerEntity = customerEntity;
 	}
 
-
 	public static ContractEntityBuilder builder() {
 		return new ContractEntityBuilder();
 	}
-
 
 	public static class ContractEntityBuilder {
 		private Long id;
@@ -149,63 +149,130 @@ public class ContractEntity extends AbstractEntity implements Serializable {
 		private CarEntity carEntity;
 		private CustomerEntity customerEntity;
 
+		/**
+		 * Default constructor for car contract entity builder.
+		 *
+		 */
 		public ContractEntityBuilder() {
 
 		}
-		
-		public ContractEntityBuilder withId(Long id){
-			this.id=id;
+
+		/**
+		 * This is the method which add id to contract.
+		 * 
+		 * @param Long
+		 *            as id for contract.
+		 * @return Id of contract.
+		 */
+		public ContractEntityBuilder withId(Long id) {
+			this.id = id;
 			return this;
-			
+
 		}
 
-		public ContractEntityBuilder withRentDate(LocalDate rentDate){
-			this.rentDate=rentDate;
+		/**
+		 * This is the method which add date to contract.
+		 * 
+		 * @param LocalDate
+		 *            as date of rent for contract.
+		 * @return rent date of contract.
+		 */
+		public ContractEntityBuilder withRentDate(LocalDate rentDate) {
+			this.rentDate = rentDate;
 			return this;
-			
+
 		}
-		
-		public ContractEntityBuilder withReturnDate(LocalDate returnDate){
-			this.returnDate=returnDate;
+
+		/**
+		 * This is the method which add date to contract.
+		 * 
+		 * @param LocalDate
+		 *            as date of return for contract.
+		 * @return return date of contract.
+		 */
+		public ContractEntityBuilder withReturnDate(LocalDate returnDate) {
+			this.returnDate = returnDate;
 			return this;
-			
+
 		}
-		
-		public ContractEntityBuilder withCost(Double cost){
-			this.cost=cost;
+
+		/**
+		 * This is the method which add cost to contract.
+		 * 
+		 * @param Double
+		 *            as cost for contract.
+		 * @return cost of contract.
+		 */
+		public ContractEntityBuilder withCost(Double cost) {
+			this.cost = cost;
 			return this;
-			
+
 		}
-		
-		public ContractEntityBuilder withDepartmentFrom(DepartmentEntity departmentFrom){
-			this.departmentFrom=departmentFrom;
+
+		/**
+		 * This is the method which add brand to contract.
+		 * 
+		 * @param DepartmentEntity
+		 *            as department for contract.
+		 * @return Department of contract.
+		 */
+		public ContractEntityBuilder withDepartmentFrom(DepartmentEntity departmentFrom) {
+			this.departmentFrom = departmentFrom;
 			return this;
-			
+
 		}
-		
-		public ContractEntityBuilder withDepartmentTo(DepartmentEntity departmentTo){
-			this.departmentTo=departmentTo;
+
+		/**
+		 * This is the method which add brand to contract.
+		 * 
+		 * @param DepartmentEntity
+		 *            as department for contract.
+		 * @return Department of contract.
+		 */
+		public ContractEntityBuilder withDepartmentTo(DepartmentEntity departmentTo) {
+			this.departmentTo = departmentTo;
 			return this;
-			
+
 		}
-		
-		public ContractEntityBuilder withCar(CarEntity carEntity){
-			this.carEntity=carEntity;
+
+		/**
+		 * This is the method which add car to contract.
+		 * 
+		 * @param CarEntity
+		 *            as car for contract.
+		 * @return Car entity of contract.
+		 */
+		public ContractEntityBuilder withCar(CarEntity carEntity) {
+			this.carEntity = carEntity;
 			return this;
-			
+
 		}
-		
-		public ContractEntityBuilder withCustomer(CustomerEntity customerEntity){
-			this.customerEntity=customerEntity;
+
+		/**
+		 * This is the method which add customer to contract.
+		 * 
+		 * @param CustomerEntity
+		 *            as customer for contract.
+		 * @return Customer entity.
+		 */
+		public ContractEntityBuilder withCustomer(CustomerEntity customerEntity) {
+			this.customerEntity = customerEntity;
 			return this;
-			
+
 		}
-		
-		
+
+		/**
+		 * This is the method which build contract entity and if there is no
+		 * demanded params throw exception.
+		 * 
+		 * @param Obligatory
+		 *            Date rent date and Date return date.
+		 * @return Contract entity.
+		 */
 		public ContractEntity build() {
-			  if (rentDate == null || returnDate == null) {
-	                throw new InvalidCreationException("Incorrect contract to be created");
-	            }
+			if (rentDate == null || returnDate == null) {
+				throw new InvalidCreationException("Incorrect contract to be created");
+			}
 			return new ContractEntity(this);
 		}
 	}

@@ -35,6 +35,7 @@ public class CarDaoImpl extends AbstractDao<CarEntity, Long> implements CarDao {
 		return query.getResultList();
 	}
 
+	@Override
 	public List<CarEntity> findCarsRentedByMoreThenTenCustomers() {
 		TypedQuery<CarEntity> query = entityManager.createQuery(
 				"select ce from CarEntity ce join ce.contracts c group by ce.id having count(distinct c.customerEntity.id)>=10",

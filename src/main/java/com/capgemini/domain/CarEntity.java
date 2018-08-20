@@ -32,7 +32,7 @@ public class CarEntity extends AbstractEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name = "brand", length = 50, nullable = false)
 	private String brand;
@@ -57,7 +57,6 @@ public class CarEntity extends AbstractEntity implements Serializable {
 	private List<EmployeeEntity> attendantEmployees;
 
 	public CarEntity() {
-		super();
 	}
 
 	public CarEntity(CarEntityBuilder builder) {
@@ -179,72 +178,161 @@ public class CarEntity extends AbstractEntity implements Serializable {
 		private List<ContractEntity> contracts;
 		private List<EmployeeEntity> attendantEmployees;
 
+		/**
+		 * Default constructor for car entity builder.
+		 *
+		 */
 		public CarEntityBuilder() {
 
 		}
 
+		/**
+		 * This is the method which add id to car.
+		 * 
+		 * @param Long
+		 *            as id for car.
+		 * @return Id of car.
+		 */
 		public CarEntityBuilder withId(Long id) {
 			this.id = id;
 			return this;
 		}
 
+		/**
+		 * This is the method which add brand to car.
+		 * 
+		 * @param String
+		 *            as brand for car.
+		 * @return Brand of car.
+		 */
 		public CarEntityBuilder withBrand(String brand) {
 			this.brand = brand;
 			return this;
 		}
 
+		/**
+		 * This is the method which add model to car.
+		 * 
+		 * @param String
+		 *            as model for car.
+		 * @return model of car.
+		 */
 		public CarEntityBuilder withModel(String model) {
 			this.model = model;
 			return this;
 		}
 
+		/**
+		 * This is the method which add power to car.
+		 * 
+		 * @param Integer
+		 *            as power for car.
+		 * @return power of car.
+		 */
 		public CarEntityBuilder withPower(Integer power) {
 			this.power = power;
 			return this;
 		}
 
+		/**
+		 * This is the method which add milleage to car.
+		 * 
+		 * @param Integer
+		 *            as brand for car.
+		 * @return milleage of car.
+		 */
 		public CarEntityBuilder withMilleage(Integer milleage) {
 			this.milleage = milleage;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which add engine capacity to car.
+		 * 
+		 * @param Double
+		 *            as engine capacity for car.
+		 * @return engine capacity of car.
+		 */
 		public CarEntityBuilder withEngineCapacity(Double engineCapacity) {
 			this.engineCapacity = engineCapacity;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which add year to car.
+		 * 
+		 * @param Integer
+		 *            as year for car.
+		 * @return year of car.
+		 */
 		public CarEntityBuilder withYear(Integer year) {
 			this.year = year;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which add brand to color.
+		 * 
+		 * @param String
+		 *            as color for car.
+		 * @return color of car.
+		 */
 		public CarEntityBuilder withColor(String color) {
 			this.color = color;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which add type to car.
+		 * 
+		 * @param String
+		 *            as type for car.
+		 * @return type of car.
+		 */
 		public CarEntityBuilder withType(String type) {
 			this.type = type;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which add contracts to car.
+		 * 
+		 * @param List
+		 *            as contracts for car.
+		 * @return contracts of car.
+		 */
 		public CarEntityBuilder withContracts(List<ContractEntity> contracts) {
 			this.contracts = contracts;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which add attendant employees to car.
+		 * 
+		 * @param List
+		 *            as attendant employees for car.
+		 * @return attendant employees of car.
+		 */
 		public CarEntityBuilder withAttendantEmployees(List<EmployeeEntity> attendantEmployees) {
 			this.attendantEmployees = attendantEmployees;
 			return this;
 
 		}
 
+		/**
+		 * This is the method which build car entity and if there is no demanded
+		 * params throw exception.
+		 * 
+		 * @param Obligatory
+		 *            String brand and String model.
+		 * @return Car enity.
+		 */
 		public CarEntity build() {
 			if (brand == null || model == null) {
 				throw new InvalidCreationException("Incorrect car to be created");

@@ -14,15 +14,7 @@ public interface CarService {
 	 *            Transfer Object.
 	 * 
 	 */
-	CarTO add(CarTO carTO);
 
-	/**
-	 * This is the method which update car in collection.
-	 * 
-	 * @param Car
-	 *            Transfer Object.
-	 * 
-	 */
 	CarTO update(CarTO carTO);
 
 	/**
@@ -100,7 +92,7 @@ public interface CarService {
 	 * 
 	 * @return List of cars.
 	 */
-	List<CarTO> getCarsRentedByMoreThenTenCustomers();
+	List<CarTO> getCarsRentedByMoreThanTenCustomers();
 
 	/**
 	 * This is the method getting count of cars, which be rented between to

@@ -25,6 +25,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private final EmployeeDao employeeRepository;
 
 	@Autowired
+	EmployeeMapper employeeMapper;
+
+	@Autowired
 	public DepartmentServiceImpl(DepartmentDao departmentRepository, EmployeeDao employeeRepository) {
 		this.departmentRepository = departmentRepository;
 		this.employeeRepository = employeeRepository;
@@ -66,10 +69,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public void addEmployeeToDepartment(Long idEmployee, Long idDepartment) {
 		DepartmentEntity departmentEntity = departmentRepository.findOne(idDepartment);
 		EmployeeEntity employeeEntity = employeeRepository.findOne(idEmployee);
-		List<EmployeeEntity> employess = departmentEntity.getEmployees();
-		employess.add(employeeEntity);
-		departmentEntity.setEmployees(employess);
-		departmentRepository.save(departmentEntity);
+
+		employeeEntity.setDepartmentEntity(departmentEntity);
+		departmentEntity.getEmployees().add(employeeEntity);
+
+		departmentRepository.update(departmentEntity);
+		employeeRepository.update(employeeEntity);
 
 	}
 
@@ -89,7 +94,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<EmployeeTO> getEmployeesFromDepartment(Long idDepartment) {
 		List<EmployeeEntity> employees = employeeRepository.findAll();
-		return EmployeeMapper.map2TOs(employees);
+		return employeeMapper.map2TOs(employees);
 	}
 
 	@Override

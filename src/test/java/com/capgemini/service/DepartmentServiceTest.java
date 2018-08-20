@@ -1,5 +1,6 @@
 package com.capgemini.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +23,7 @@ import com.capgemini.types.EmployeeTO;
 import com.capgemini.types.EmployeeTO.EmployeeTOBuilder;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.profiles.active=hsql")
 @Transactional
 public class DepartmentServiceTest {
 
@@ -39,10 +40,9 @@ public class DepartmentServiceTest {
 				.withAdressData(new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
 						.withStreet("Warszawska").build())
 				.build();
-		DepartmentTO savedDepratment = departmentService.add(department);
 		int departmentSizeBeforeAdd = departmentService.findAll().size();
 		// when
-		DepartmentTO addedDepartment = departmentService.add(savedDepratment);
+		DepartmentTO addedDepartment = departmentService.add(department);
 		// then
 		assertEquals("512525252", addedDepartment.getMobile());
 		assertEquals(departmentSizeBeforeAdd + 1, departmentService.findAll().size());
@@ -54,7 +54,7 @@ public class DepartmentServiceTest {
 		// give
 		AdressDataTO adress = new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
 				.withStreet("Warszawska").build();
-		String phone = "45623951";
+		String phone = "512525252";
 		DepartmentTO department = new DepartmentTOBuilder().withMobile("512525252").withAdressData(adress).build();
 
 		// when
@@ -62,7 +62,7 @@ public class DepartmentServiceTest {
 
 		// then
 		assertNotNull(addedDepartment);
-		assertEquals(adress, addedDepartment.getAdressData());
+		assertEquals(adress, department.getAdressData());
 		assertEquals(phone, addedDepartment.getMobile());
 	}
 
@@ -70,9 +70,9 @@ public class DepartmentServiceTest {
 	public void shouldFindEmployesByDepartmentAndAttendantCar() {
 		// given
 		List<Long> employees = new ArrayList<>();
-		EmployeeTO employee1 = new EmployeeTOBuilder().withFirstName("Artur").withLastName("Szaniawski").build();
-		EmployeeTO employee2 = new EmployeeTOBuilder().withFirstName("Ada").withLastName("Szaniawski").build();
-		EmployeeTO employee3 = new EmployeeTOBuilder().withFirstName("Andrzej").withLastName("Szaniawski").build();
+		EmployeeTO employee1 = new EmployeeTOBuilder().withFirstName("Artur").withLastName("asda").build();
+		EmployeeTO employee2 = new EmployeeTOBuilder().withFirstName("Ada").withLastName("sad").build();
+		EmployeeTO employee3 = new EmployeeTOBuilder().withFirstName("Andrzej").withLastName("Kowalski").build();
 		employees.add(employee1.getId());
 		employees.add(employee2.getId());
 		employees.add(employee3.getId());
@@ -98,11 +98,85 @@ public class DepartmentServiceTest {
 				.withStreet("Warszawska").build();
 		DepartmentTO dep1 = new DepartmentTOBuilder().withMobile("512525252").withAdressData(adress).build();
 		departmentService.add(dep1);
+		EmployeeTO emp1 = new EmployeeTOBuilder().withFirstName("Artur").withLastName("Szaniawski").withSalary(15000)
+				.build();
+		employeeService.saveEmployee(emp1);
+		List<Long> employees = new ArrayList<>();
+		employees.add(emp1.getId());
 		DepartmentTO foundDep = departmentService.findOne(1L);
+		foundDep.setEmployees(employees);
 		int size = foundDep.getEmployees().size();
 		// when
 		int sizeOfEmployeeByMethod = departmentService.getEmployeesFromDepartment(1L).size();
 		// then
+		assertNotNull(employees);
 		assertEquals(size, sizeOfEmployeeByMethod);
+	}
+
+	@Test
+	public void shouldFindCarById() {
+		// given
+
+		AdressDataTO adress = new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
+				.withStreet("Warszawska").build();
+		DepartmentTO dep1 = new DepartmentTOBuilder().withMobile("512525252").withAdressData(adress).build();
+
+		DepartmentTO savedDep = departmentService.add(dep1);
+
+		// when
+		DepartmentTO selectedDep = departmentService.findOne(savedDep.getId());
+
+		// then
+		assertThat(savedDep.getId()).isEqualTo(selectedDep.getId());
+	}
+
+	@Test
+	public void shouldFindThreeOutpustsInRepository() {
+		// given
+		AdressDataTO adress = new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
+				.withStreet("Warszawska").build();
+		DepartmentTO dep1 = new DepartmentTOBuilder().withMobile("512525252").withAdressData(adress).build();
+		DepartmentTO dep2 = new DepartmentTOBuilder().withMobile("454521").withAdressData(adress).build();
+		DepartmentTO dep3 = new DepartmentTOBuilder().withMobile("26252").withAdressData(adress).build();
+		DepartmentTO dep4 = new DepartmentTOBuilder().withMobile("25").withAdressData(adress).build();
+
+		departmentService.add(dep1);
+		departmentService.add(dep2);
+		departmentService.add(dep3);
+		departmentService.add(dep4);
+
+		// when
+		List<DepartmentTO> departments = departmentService.findAll();
+
+		// then
+		assertThat(departments.size()).isEqualTo(4);
+	}
+
+	@Test
+	public void shouldFindTwoEmployeesInDepartment() {
+		AdressDataTO adress = new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
+				.withStreet("Warszawska").build();
+		DepartmentTO dep1 = new DepartmentTOBuilder().withMobile("512525252").withAdressData(adress).build();
+
+		DepartmentTO savedDepartment = departmentService.add(dep1);
+
+		EmployeeTO emp1 = new EmployeeTOBuilder().withFirstName("Artur").withLastName("Szaniawski").withSalary(15000)
+				.build();
+		EmployeeTO emp2 = new EmployeeTOBuilder().withFirstName("Artur").withLastName("Szaniawski").withSalary(15000)
+				.build();
+
+		EmployeeTO savedEmployee1 = employeeService.saveEmployee(emp1);
+		EmployeeTO savedEmployee2 = employeeService.saveEmployee(emp2);
+
+		departmentService.addEmployeeToDepartment(savedEmployee1.getId(), savedDepartment.getId());
+		departmentService.addEmployeeToDepartment(savedEmployee2.getId(), savedDepartment.getId());
+
+		// when
+		List<EmployeeTO> employees = departmentService.getEmployeesFromDepartment(savedDepartment.getId());
+
+		// then
+		assertThat(employees.size()).isEqualTo(2);
+		assertThat(employeeService.getEmployeeById(savedEmployee1.getId()).getDepartmentTO())
+				.isEqualTo(savedDepartment.getId());
 	}
 }

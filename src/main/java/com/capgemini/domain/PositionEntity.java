@@ -38,8 +38,11 @@ public class PositionEntity extends AbstractEntity implements Serializable {
 	@OneToMany(mappedBy = "positionEntity")
 	private List<EmployeeEntity> employees;
 
+	/**
+	 * Default constructor for position entity.
+	 *
+	 */
 	public PositionEntity() {
-		super();
 	}
 
 	public PositionEntity(PositionEntityBuilder builder) {
@@ -82,25 +85,57 @@ public class PositionEntity extends AbstractEntity implements Serializable {
 		private String position;
 		private List<EmployeeEntity> employees;
 
+		/**
+		 * Default constructor for position entity builder.
+		 *
+		 */
 		public PositionEntityBuilder() {
-			super();
 		}
 
+		/**
+		 * This is the method which add id to position.
+		 * 
+		 * @param Long
+		 *            as id for position.
+		 * @return Id of position.
+		 */
 		public PositionEntityBuilder withId(Long id) {
 			this.id = id;
 			return this;
 		}
 
+		/**
+		 * This is the method which add position to position.
+		 * 
+		 * @param String
+		 *            as position for position.
+		 * @return position for position.
+		 */
 		public PositionEntityBuilder withPosition(String position) {
 			this.position = position;
 			return this;
 		}
 
+		/**
+		 * This is the method which add employees to position.
+		 * 
+		 * @param List
+		 *            as employees for position.
+		 * @return position for position.
+		 */
 		public PositionEntityBuilder withEmployees(List<EmployeeEntity> employees) {
 			this.employees = employees;
 			return this;
 		}
 
+		/**
+		 * This is the method which build position entity and if there is no
+		 * demanded params throw exception.
+		 * 
+		 * @param Obligatory
+		 *            String position.
+		 * @return Position entity.
+		 */
 		public PositionEntity build() {
 			if (position == null) {
 				throw new InvalidCreationException("Incorrect position to be created");

@@ -24,35 +24,30 @@ public class CarServiceImpl implements CarService {
 	private final EmployeeDao employeeRepository;
 
 	@Autowired
+	CarMapper carMapper;
+
+	@Autowired
 	public CarServiceImpl(CarDao carRepository, EmployeeDao employeeRepository) {
-		super();
 		this.carRepository = carRepository;
 		this.employeeRepository = employeeRepository;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public CarTO add(CarTO carTO) {
-		CarEntity cars = carRepository.save(CarMapper.toCarEntity(carTO));
-		return CarMapper.toCarTO(cars);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
 	public CarTO update(CarTO carTO) {
-		CarEntity carEntity = carRepository.update(CarMapper.toCarEntity(carTO));
-		return CarMapper.toCarTO(carEntity);
+		CarEntity carEntity = carRepository.update(carMapper.toCarEntity(carTO));
+		return carMapper.toCarTO(carEntity);
 	}
 
 	@Override
 	public CarTO findCarById(Long id) {
-		return CarMapper.toCarTO(carRepository.findOne(id));
+		return carMapper.toCarTO(carRepository.findOne(id));
 	}
 
 	@Override
 	public List<CarTO> findAll() {
 		List<CarEntity> allCars = carRepository.findAll();
-		return CarMapper.map2TOs(allCars);
+		return carMapper.map2TOs(allCars);
 	}
 
 	@Override
@@ -63,18 +58,13 @@ public class CarServiceImpl implements CarService {
 		employees.add(employeeRepository.findOne(idAttendant));
 		car.setAttendantEmployees(employees);
 		carRepository.save(car);
+		carRepository.update(car);
 
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public void removeCarById(Long id) {
-		CarEntity car = carRepository.findOne(id);
-		car.getAttendantEmployees().stream().forEach(em -> {
-			List<CarEntity> list = em.getAttendCars();
-			list.remove(car);
-			em.setAttendCars(list);
-		});
 		carRepository.delete(id);
 
 	}
@@ -82,14 +72,14 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public List<CarTO> getCarsByCarTypeAndBrand(String carType, String brand) {
 		List<CarEntity> cars = carRepository.findByCarTypeAndBrand(carType, brand);
-		return CarMapper.map2TOs(cars);
+		return carMapper.map2TOs(cars);
 
 	}
 
 	@Override
 	public List<CarTO> getCarsByAttendantId(Long idEmployee) {
 		List<CarEntity> cars = carRepository.findByAttendantEmployees(idEmployee);
-		return CarMapper.map2TOs(cars);
+		return carMapper.map2TOs(cars);
 	}
 
 	@Override
@@ -101,18 +91,19 @@ public class CarServiceImpl implements CarService {
 	@Override
 	@Transactional(readOnly = false)
 	public CarTO saveCar(CarTO carTO) {
-		CarEntity carEntity = carRepository.save(CarMapper.toCarEntity(carTO));
-		return CarMapper.toCarTO(carEntity);
+		CarEntity carEntity = carRepository.save(carMapper.toCarEntity(carTO));
+		return carMapper.toCarTO(carEntity);
 	}
 
 	@Override
-	public List<CarTO> getCarsRentedByMoreThenTenCustomers() {
+	public List<CarTO> getCarsRentedByMoreThanTenCustomers() {
 		List<CarEntity> cars = carRepository.findCarsRentedByMoreThenTenCustomers();
-		return CarMapper.map2TOs(cars);
+		return carMapper.map2TOs(cars);
 
 	}
 
 	@Override
+
 	public int getCountOfCarsRentedBetwenDates(LocalDate firstDate, LocalDate secondDate) {
 		return carRepository.getCountOfCarsRentedBetwenDates(firstDate, secondDate);
 	}

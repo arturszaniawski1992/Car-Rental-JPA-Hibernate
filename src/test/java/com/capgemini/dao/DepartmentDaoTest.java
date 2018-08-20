@@ -1,8 +1,7 @@
 package com.capgemini.dao;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capgemini.domain.CarEntity;
+import com.capgemini.domain.CarEntity.CarEntityBuilder;
 import com.capgemini.domain.DepartmentEntity;
 import com.capgemini.domain.DepartmentEntity.DepartmentEntityBuilder;
 import com.capgemini.domain.EmployeeEntity;
@@ -26,13 +27,14 @@ import embedded.AdressDataEntity.AdressDataEntityBuilder;
 import exception.InvalidCreationException;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.profiles.active=hsql")
 @Transactional
 public class DepartmentDaoTest {
 
 	@PersistenceContext
 	EntityManager entityManager;
-
+	@Autowired
+	CarDao carRepository;
 	@Autowired
 	private DepartmentDao departmentRepository;
 	private DepartmentEntity dep1;
@@ -79,7 +81,7 @@ public class DepartmentDaoTest {
 	}
 
 	@Test
-	public void shouldFindEmployesByDepartmentAndAttendantCar() {
+	public void shouldFindEmployeesByDepartmentId() {
 		// given
 		List<EmployeeEntity> employees = new ArrayList<>();
 		employees.add(employee1);
@@ -88,11 +90,33 @@ public class DepartmentDaoTest {
 
 		dep1.setEmployees(employees);
 		// when
-		List<EmployeeEntity> employeesByDep = departmentRepository.findEmployeesByDepartmentEntityId(1L);
+		List<EmployeeEntity> employeesByDep = departmentRepository.findEmployeesByDepartmentEntityId(dep1.getId());
 
 		// then
 		assertNotNull(employeesByDep);
-		assertTrue(employeesByDep.size() == 1);
+		assertEquals(3, employees.size());
+
+	}
+
+	@Test
+	public void shouldFindEmployeesByDepartmentAndAttendantCar() {
+		// given
+		List<EmployeeEntity> employees = new ArrayList<>();
+		employees.add(employee1);
+		employees.add(employee2);
+		employees.add(employee3);
+
+		CarEntity car1 = new CarEntityBuilder().withBrand("Audi").withModel("A4").withType("sedan")
+				.withAttendantEmployees(employees).build();
+		carRepository.save(car1);
+		dep1.setEmployees(employees);
+		// when
+		List<EmployeeEntity> employeesByDepAndCar = departmentRepository.findEmployesByDepartmentAndAttendantCar(dep1,
+				car1);
+
+		// then
+		assertNotNull(employeesByDepAndCar);
+		assertEquals(3, employees.size());
 
 	}
 

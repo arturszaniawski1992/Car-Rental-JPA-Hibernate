@@ -1,36 +1,43 @@
 package searchcriteria;
 
-import com.capgemini.domain.CarEntity;
-import com.capgemini.domain.DepartmentEntity;
-import com.capgemini.domain.EmployeeEntity;
-
 public class EmployeeSearchCriteria {
-	private DepartmentEntity department;
-	private CarEntity attendCar;
-	private EmployeeEntity employee;
+	private Long departmentId;
+	private Long attendantId;
+	private Long positionId;
 
-	public DepartmentEntity getDepartment() {
-		return department;
+	public EmployeeSearchCriteria() {
+		super();
 	}
 
-	public void setDepartment(DepartmentEntity department) {
-		this.department = department;
+	public EmployeeSearchCriteria(Long departmentId, Long attendantId, Long positionId) {
+		super();
+		this.departmentId = departmentId;
+		this.attendantId = attendantId;
+		this.positionId = positionId;
 	}
 
-	public CarEntity getAttendCar() {
-		return attendCar;
+	public Long getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setAttendCar(CarEntity attendCar) {
-		this.attendCar = attendCar;
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
 	}
 
-	public EmployeeEntity getEmployee() {
-		return employee;
+	public Long getAttendantId() {
+		return attendantId;
 	}
 
-	public void setEmployee(EmployeeEntity employee) {
-		this.employee = employee;
+	public void setAttendantId(Long attendantId) {
+		this.attendantId = attendantId;
+	}
+
+	public Long getPositionId() {
+		return positionId;
+	}
+
+	public void setPositionId(Long positionId) {
+		this.positionId = positionId;
 	}
 
 }

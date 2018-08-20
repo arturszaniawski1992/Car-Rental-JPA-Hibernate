@@ -64,26 +64,59 @@ public class AdressDataTO {
 			super();
 		}
 
+		/**
+		 * This is the method which add street to adress.
+		 * 
+		 * @param String
+		 *            as street in adress.
+		 * @return Street.
+		 */
 		public AdressDataTOBuilder withStreet(String street) {
 			this.street = street;
 			return this;
 		}
 
+		/**
+		 * This is the method which add number to adress.
+		 * 
+		 * @param Integer
+		 *            as number in adress.
+		 * @return Number.
+		 */
 		public AdressDataTOBuilder withNumber(int number) {
 			this.number = number;
 			return this;
 		}
 
+		/**
+		 * This is the method which add city to adress.
+		 * 
+		 * @param String
+		 *            as city in adress.
+		 * @return City.
+		 */
 		public AdressDataTOBuilder withCity(String city) {
 			this.city = city;
 			return this;
 		}
 
+		/**
+		 * This is the method which add post code to adress.
+		 * 
+		 * @param String
+		 *            as post code in adress.
+		 * @return Post code.
+		 */
 		public AdressDataTOBuilder withPostCode(String postCode) {
 			this.postCode = postCode;
 			return this;
 		}
 
+		/**
+		 * This is the method which create new AdressTO Object.
+		 * 
+		 * @return New object.
+		 */
 		public AdressDataTO build() {
 
 			return new AdressDataTO(this);

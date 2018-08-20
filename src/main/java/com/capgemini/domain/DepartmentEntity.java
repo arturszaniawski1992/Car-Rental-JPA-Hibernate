@@ -44,13 +44,16 @@ public class DepartmentEntity extends AbstractEntity implements Serializable {
 
 	@OneToMany(mappedBy = "departmentEntity")
 	private List<EmployeeEntity> employees;
-	@OneToMany(mappedBy = "departmentFrom", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "departmentFrom", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ContractEntity> contractFrom;
-	@OneToMany(mappedBy = "departmentTo", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "departmentTo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ContractEntity> contractTo;
 
+	/**
+	 * Default constructor for department entity.
+	 *
+	 */
 	public DepartmentEntity() {
-		super();
 	}
 
 	public DepartmentEntity(DepartmentEntityBuilder builder) {
@@ -122,40 +125,93 @@ public class DepartmentEntity extends AbstractEntity implements Serializable {
 		private List<ContractEntity> contractFrom;
 		private List<ContractEntity> contractTo;
 
+		/**
+		 * Default constructor for department entity builder.
+		 *
+		 */
 		public DepartmentEntityBuilder() {
-			super();
 		}
 
+		/**
+		 * This is the method which add id to department.
+		 * 
+		 * @param Long
+		 *            as id for department.
+		 * @return id of department.
+		 */
 		public DepartmentEntityBuilder withId(Long id) {
 			this.id = id;
 			return this;
 		}
 
+		/**
+		 * This is the method which add mobile to department.
+		 * 
+		 * @param String
+		 *            as mobile for department.
+		 * @return mobile of department.
+		 */
 		public DepartmentEntityBuilder withMobile(String mobile) {
 			this.mobile = mobile;
 			return this;
 		}
 
+		/**
+		 * This is the method which add adress to department.
+		 * 
+		 * @param AdressDataEntity
+		 *            as adress for department.
+		 * @return adress of department.
+		 */
 		public DepartmentEntityBuilder withAdressData(AdressDataEntity adressData) {
 			this.adressData = adressData;
 			return this;
 		}
 
+		/**
+		 * This is the method which add employees to department.
+		 * 
+		 * @param List
+		 *            as employees for department.
+		 * @return employees of department.
+		 */
 		public DepartmentEntityBuilder withEmployees(List<EmployeeEntity> employees) {
 			this.employees = employees;
 			return this;
 		}
 
+		/**
+		 * This is the method which add contracts to department.
+		 * 
+		 * @param List
+		 *            as contracts for department.
+		 * @return contract of department.
+		 */
 		public DepartmentEntityBuilder withContractFrom(List<ContractEntity> contractFrom) {
 			this.contractFrom = contractFrom;
 			return this;
 		}
 
+		/**
+		 * This is the method which add contracts to department.
+		 * 
+		 * @param List
+		 *            as contracts for department.
+		 * @return contract of department.
+		 */
 		public DepartmentEntityBuilder withContractTo(List<ContractEntity> contractTo) {
 			this.contractTo = contractTo;
 			return this;
 		}
 
+		/**
+		 * This is the method which build department entity and if there is no
+		 * demanded params throw exception.
+		 * 
+		 * @param Obligatory
+		 *            String mobile, adressData adress.
+		 * @return Department entity.
+		 */
 		public DepartmentEntity build() {
 			if (mobile == null || adressData == null) {
 				throw new InvalidCreationException("Incorrect department to be created");

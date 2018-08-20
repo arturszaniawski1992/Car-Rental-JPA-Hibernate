@@ -26,7 +26,7 @@ import com.capgemini.domain.EmployeeEntity.EmployeeEntityBuilder;
 import exception.InvalidCreationException;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.profiles.active=hsql")
 @Transactional
 public class CarDaoTest {
 
@@ -105,6 +105,5 @@ public class CarDaoTest {
 		assertTrue(carsByAttendant.size() == 1);
 		assertEquals(carsByAttendant.get(0).getAttendantEmployees(), car1.getAttendantEmployees());
 	}
-	
 
 }

@@ -16,7 +16,7 @@ public class DepartmentDaoImpl extends AbstractDao<DepartmentEntity, Long> imple
 
 	@Override
 	public List<EmployeeEntity> findEmployesByDepartmentAndAttendantCar(DepartmentEntity department, CarEntity car) {
-		TypedQuery<EmployeeEntity> query = entityManager.createNamedQuery(
+		TypedQuery<EmployeeEntity> query = entityManager.createQuery(
 				"SELECT e FROM EmployeeEntity e WHERE e.departmentEntity = :department AND :car MEMBER OF e.attendCars",
 				EmployeeEntity.class);
 		query.setParameter("department", department);
@@ -26,12 +26,10 @@ public class DepartmentDaoImpl extends AbstractDao<DepartmentEntity, Long> imple
 
 	@Override
 	public List<EmployeeEntity> findEmployeesByDepartmentEntityId(Long id) {
-		TypedQuery<EmployeeEntity> query = entityManager.createNamedQuery(
-				"SELECT em FROM EmployeeEntity em WHERE em.departmentEntity.id=:id", EmployeeEntity.class);
+		TypedQuery<EmployeeEntity> query = entityManager
+				.createQuery("SELECT em FROM EmployeeEntity em WHERE em.departmentEntity.id=:id", EmployeeEntity.class);
 		query.setParameter("id", id);
 		return query.getResultList();
 	}
-	
-	
 
 }

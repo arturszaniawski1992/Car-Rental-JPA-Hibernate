@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import embedded.AdressDataEntity;
+import exception.InvalidCreationException;
 
 public class CustomerTO {
 
@@ -116,46 +117,122 @@ public class CustomerTO {
 		private AdressDataEntity adressData;
 		private List<Long> contracts;
 
+		/**
+		 * Default constructor for customer entity builder.
+		 *
+		 */
 		public CustomerTOBuilder() {
 
 		}
 
+		/**
+		 * This is the method which add id to customer.
+		 * 
+		 * @param Long
+		 *            as id for customer.
+		 * @return Id of customer.
+		 */
+		public CustomerTOBuilder withId(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		/**
+		 * This is the method which add first name to customer.
+		 * 
+		 * @param String
+		 *            as first name of customer.
+		 * @return first name of customer.
+		 */
 		public CustomerTOBuilder withFirstName(String firstName) {
 			this.firstName = firstName;
 			return this;
 		}
 
+		/**
+		 * This is the method which add credit card number to customer.
+		 * 
+		 * @param String
+		 *            as credit card number.
+		 * @return credit card number of customer.
+		 */
 		public CustomerTOBuilder withCreditCardNumber(String creditCardNumber) {
 			this.creditCardNumber = creditCardNumber;
 			return this;
 		}
 
+		/**
+		 * This is the method which add last name to customer.
+		 * 
+		 * @param String
+		 *            as last name of customer.
+		 * @return last name of customer.
+		 */
 		public CustomerTOBuilder withDateOfBirth(LocalDate dateOfBirth) {
 			this.dateOfBirth = dateOfBirth;
 			return this;
 		}
 
+		/**
+		 * This is the method which add credit card number to customer.
+		 * 
+		 * @param String
+		 *            as credit card number.
+		 * @return credit card number of customer.
+		 */
 		public CustomerTOBuilder withMobile(String mobile) {
 			this.mobile = mobile;
 			return this;
 		}
 
+		/**
+		 * This is the method which add date of birth to customer.
+		 * 
+		 * @param LocalDate
+		 *            as date of birth of customer.
+		 * @return date of birth of customer.
+		 */
 		public CustomerTOBuilder withMail(String mail) {
 			this.mail = mail;
 			return this;
 		}
 
+		/**
+		 * This is the method which add adress to customer.
+		 * 
+		 * @param AdressDataTO
+		 *            as adress for customer.
+		 * @return adress of customer.
+		 */
 		public CustomerTOBuilder withAdressData(AdressDataEntity adressData) {
 			this.adressData = adressData;
 			return this;
 		}
 
+		/**
+		 * This is the method which add contracts to customer.
+		 * 
+		 * @param List
+		 *            as contracts id for customer.
+		 * @return contracts of customer.
+		 */
 		public CustomerTOBuilder withContracts(List<Long> contracts) {
 			this.contracts = contracts;
 			return this;
 		}
 
+		/**
+		 * This is the method which build customer TO and if there is no
+		 * demanded params throw exception.
+		 * 
+		 * @param Obligatory
+		 *            String firstname, String lastname, String mobile,.
+		 * @return Customer entity.
+		 */
 		public CustomerTO build() {
+			if (firstName == null || lastName == null || mobile == null) {
+				throw new InvalidCreationException("Incorrect customer to be created");
+			}
 			return new CustomerTO(this);
 		}
 
