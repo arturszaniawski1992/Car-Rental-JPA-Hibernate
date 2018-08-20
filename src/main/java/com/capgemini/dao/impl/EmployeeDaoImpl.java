@@ -31,7 +31,7 @@ public class EmployeeDaoImpl extends AbstractDao<EmployeeEntity, Long> implement
 
 		if (employeeSearchCriteria.getAttendantId() != null) {
 			car = employeeSearchCriteria.getAttendantId();
-			stringBuilder.append(" join employee.cars c where c.id =:carId");
+			stringBuilder.append(" join employee.attendCar c where c.id =:carId");
 		}
 
 		if (employeeSearchCriteria.getDepartmentId() != null) {
