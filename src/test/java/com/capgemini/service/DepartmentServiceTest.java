@@ -179,4 +179,48 @@ public class DepartmentServiceTest {
 		assertThat(employeeService.getEmployeeById(savedEmployee1.getId()).getDepartmentTO())
 				.isEqualTo(savedDepartment.getId());
 	}
+	
+	  @Test
+	    
+	    public void shouldDeleteOutpustById() {
+	        //given
+		  AdressDataTO adress1 = new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
+					.withStreet("Warszawska").build();	      
+		  AdressDataTO adress2 = new AdressDataTOBuilder().withCity("Lukow").withPostCode("21-845").withNumber(15)
+					.withStreet("Warszawska").build();
+		  AdressDataTO adress3 = new AdressDataTOBuilder().withCity("Lublin").withPostCode("52-255").withNumber(15)
+					.withStreet("Warszawska").build();
+		  DepartmentTO dep1 = new DepartmentTOBuilder().withMobile("5452123").withAdressData(adress1).build();
+		  DepartmentTO dep2 = new DepartmentTOBuilder().withMobile("69595").withAdressData(adress2).build();        
+		  DepartmentTO dep3 = new DepartmentTOBuilder().withMobile("854522").withAdressData(adress3).build();
+	        departmentService.add(dep1);
+	        departmentService.add(dep2);
+	        departmentService.add(dep3);
+	        //when
+	        departmentService.remove(dep3.getId());
+	        List<DepartmentTO> departments = departmentService.findAll();
+
+	        //then
+	        assertThat(departmentService.findOne(dep3.getId())).isNull();
+	        assertThat(departments.size()).isEqualTo(2);
+	    }
+
+	    @Test
+	    public void shouldUpdateOutpust() {
+	        //given
+	    	String mobile="54545515";
+	    	AdressDataTO adress1 = new AdressDataTOBuilder().withCity("Poznan").withPostCode("21-400").withNumber(15)
+					.withStreet("Warszawska").build();	 
+	    	DepartmentTO dep1 = new DepartmentTOBuilder().withMobile("5452123").withAdressData(adress1).build();
+	       
+	        DepartmentTO savedDepartment = departmentService.add(dep1);
+
+	        //when
+	        DepartmentTO selectedOutpost = departmentService.findOne(savedDepartment.getId());
+	        selectedOutpost.setMobile(mobile);
+	        departmentService.update(selectedOutpost);
+
+	        //then
+	        assertThat(departmentService.findOne(selectedOutpost.getId()).getMobile() == mobile);
+	    }
 }

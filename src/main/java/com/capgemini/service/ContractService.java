@@ -23,4 +23,38 @@ public interface ContractService {
 	 * @return Contract Transfer Object.
 	 */
 	ContractTO findOne(Long id);
+
+	/**
+	 * This is the method which add contract to collection.
+	 * 
+	 * @param Contract
+	 *            Transfer Object.
+	 * 
+	 */
+	ContractTO add(ContractTO contractTO);
+
+	/**
+	 * This is the method which update contract in collection.
+	 * 
+	 * @param Contract
+	 *            Transfer Object.
+	 * 
+	 */
+	ContractTO update(ContractTO departmentTO);
+
+	/**
+	 * This is the method which remove contract by its id.
+	 * 
+	 * @param Long
+	 *            id of a contract.
+	 * 
+	 */
+	void remove(Long id);
+
+	/**
+	 * This is the method which remove all contracts.
+	 * 
+	 * 
+	 */
+	void deleteAll();
 }

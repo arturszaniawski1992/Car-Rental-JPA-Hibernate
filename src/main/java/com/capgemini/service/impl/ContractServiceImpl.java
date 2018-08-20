@@ -38,4 +38,28 @@ public class ContractServiceImpl implements ContractService {
 		return contractMapper.toContractTO(contractRepository.findOne(id));
 	}
 
+	@Override
+	public ContractTO add(ContractTO contractTO) {
+		ContractEntity contractEntity = contractRepository.save(contractMapper.toContractEntity(contractTO));
+		return contractMapper.toContractTO(contractEntity);
+	}
+
+	@Override
+	public ContractTO update(ContractTO contractTO) {
+		ContractEntity contractEntity = contractRepository.update(contractMapper.toContractEntity(contractTO));
+		return contractMapper.toContractTO(contractEntity);
+	}
+
+	@Override
+	public void remove(Long id) {
+		contractRepository.delete(id);
+
+	}
+
+	@Override
+	public void deleteAll() {
+		contractRepository.deleteAll();
+		
+	}
+
 }
