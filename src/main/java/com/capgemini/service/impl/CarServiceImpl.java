@@ -55,10 +55,9 @@ public class CarServiceImpl implements CarService {
 	public void addAttendantToCar(Long idCar, Long idAttendant) {
 		CarEntity car = carRepository.findOne(idCar);
 		List<EmployeeEntity> employees = car.getAttendantEmployees();
-		employees.add(employeeRepository.findOne(idAttendant));
+		employees.add(employeeRepository.getOne(idAttendant));
 		car.setAttendantEmployees(employees);
 		carRepository.save(car);
-		carRepository.update(car);
 
 	}
 
